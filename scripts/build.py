@@ -791,26 +791,29 @@ def skills_card(t, dark):
     w = 1280
     x0 = (w - (cols * tw + (cols - 1) * gap)) // 2
     rows = (len(SKILLS) + cols - 1) // cols
-    h = 64 + rows * th + (rows - 1) * gap + 40
+    top = 36
+    h = top + rows * th + (rows - 1) * gap + 36
     soft = dict(t, blob=t["blob"] * 0.45)
     body = backdrop(soft, w, h, [(1220, -10, 140, "#cfc3ff"), (40, h + 20, 130, "#c3d8ff")], "sk")
     body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
-    body += f'<text x="{x0}" y="42" class="m" font-size="12.5" letter-spacing="1.2" fill="{t["muted"]}">WHAT I WORK WITH</text>'
     for i, (label, group, icon, color) in enumerate(SKILLS):
         col, row = i % cols, i // cols
-        x, y = x0 + col * (tw + gap), 64 + row * (th + gap)
-        tile = "#ffffff" if not dark else "#ffffff"
-        body += (f'<rect x="{x}" y="{y}" width="{tw}" height="{th}" rx="20" fill="{tile}" fill-opacity="{0.8 if not dark else 0.05}" '
-                 f'stroke="{t["edge"] if dark else "#e8e4f3"}"/>'
-                 f'<circle cx="{x + tw / 2}" cy="{y + 46}" r="28" fill="{color}" fill-opacity="{0.12 if not dark else 0.2}"/>')
-        ink = lighten(color, 0.42) if dark else color   # brand blues vanish on dark otherwise
-        if icon.startswith("g:"):
-            glyph = GLYPHS[icon[2:]].replace("C", ink)
+        x, y = x0 + col * (tw + gap), top + row * (th + gap)
+        cx, cy = x + tw / 2, y + 48
+        body += (f'<rect x="{x}" y="{y}" width="{tw}" height="{th}" rx="20" fill="#ffffff" fill-opacity="{0.8 if not dark else 0.05}" '
+                 f'stroke="{t["edge"] if dark else "#e8e4f3"}"/>')
+        if dark:
+            # logos sit on a white badge in their true brand colour, like app icons
+            body += f'<circle cx="{cx}" cy="{cy}" r="32" fill="#ffffff"/>'
         else:
-            glyph = f'<path d="{ICON_PATHS[icon]}" fill="{ink}"/>'
-        body += (f'<g transform="translate({x + tw / 2 - 15} {y + 31}) scale(1.25)">{glyph}</g>'
-                 f'<text x="{x + tw / 2}" y="{y + 100}" text-anchor="middle" class="d6" font-size="16.5" fill="{t["ink"]}">{esc(label)}</text>'
-                 f'<text x="{x + tw / 2}" y="{y + 118}" text-anchor="middle" class="m" font-size="10" letter-spacing="1" fill="{t["faint"]}">{group}</text>')
+            body += f'<circle cx="{cx}" cy="{cy}" r="32" fill="{color}" fill-opacity="0.13"/>'
+        if icon.startswith("g:"):
+            glyph = GLYPHS[icon[2:]].replace("C", color)
+        else:
+            glyph = f'<path d="{ICON_PATHS[icon]}" fill="{color}"/>'
+        body += (f'<g transform="translate({cx - 18} {cy - 18}) scale(1.5)">{glyph}</g>'
+                 f'<text x="{cx}" y="{y + 104}" text-anchor="middle" class="d6" font-size="16.5" fill="{t["ink"]}">{esc(label)}</text>'
+                 f'<text x="{cx}" y="{y + 121}" text-anchor="middle" class="m" font-size="10" letter-spacing="1" fill="{t["faint"]}">{group}</text>')
     body += frame(t, w, h)
     return svg(w, h, "Skills: " + ", ".join(s[0] for s in SKILLS), body, ["display-600", "mono-500"])
 
