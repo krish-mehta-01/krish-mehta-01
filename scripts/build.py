@@ -876,12 +876,14 @@ def contact_card(t):
 # ── buttons ──────────────────────────────────────────────────────────────────
 ICONS = {
     "website": '<circle cx="0" cy="0" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><ellipse rx="3.6" ry="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="-8.5" y1="0" x2="8.5" y2="0" stroke="currentColor" stroke-width="1.6"/>',
+    "portfolio": '<rect x="-9.5" y="-5" width="19" height="13.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M-4 -5v-2.2a1.8 1.8 0 0 1 1.8-1.8h4.4a1.8 1.8 0 0 1 1.8 1.8V-5M-9.5 0.5h19" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     "linkedin": '<rect x="-9" y="-9" width="18" height="18" rx="4" fill="currentColor"/><rect x="-5.5" y="-2" width="2.6" height="7.5" fill="BG"/><circle cx="-4.2" cy="-5" r="1.6" fill="BG"/><path d="M-1 -2h2.4v1.1c.5-.8 1.3-1.3 2.5-1.3 2 0 2.8 1.2 2.8 3.4v4.3H4.2V1.8c0-1.1-.3-1.8-1.3-1.8s-1.5.7-1.5 1.8v3.7H-1z" fill="BG"/>',
     "email": '<rect x="-9.5" y="-7" width="19" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M-8.5 -5.5 L0 1 L8.5 -5.5" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     "leetcode": '<path d="M-4.5 -6.5 L-10 0 L-4.5 6.5 M4.5 -6.5 L10 0 L4.5 6.5 M1.6 -9 L-1.6 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
 }
 BUTTON_LINKS = [
     ("website", "Website", "https://www.krishmehta.xyz"),
+    ("portfolio", "Portfolio", "https://www.krishmehta.xyz/portfolio"),
     ("linkedin", "LinkedIn", "https://www.linkedin.com/in/-krish-mehta-01-05-/"),
     ("email", "Email", "mailto:krish.mehta.0105@gmail.com"),
     ("leetcode", "LeetCode", "https://leetcode.com/u/_krish_mehta_/"),
@@ -890,13 +892,13 @@ BUTTONS = [(k, l) for k, l, _ in BUTTON_LINKS]
 
 
 def button(t, key, label, dark):
-    w, h = 300, 64
+    w, h = 240, 64
     bg = t["bg1"]
     icon = ICONS[key].replace("currentColor", t["ink"]).replace("BG", bg)
     body = (
         f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="32" fill="{bg}" stroke="{t["edge"] if dark else "#e3dff2"}"/>'
         f'<g transform="translate(36 32)">{icon}</g>'
-        f'<text x="62" y="38" class="s5" font-size="17" fill="{t["ink"]}">{label}</text>'
+        f'<text x="60" y="38" class="s5" font-size="18" fill="{t["ink"]}">{label}</text>'
         f'<text x="{w - 30}" y="39" text-anchor="end" class="d6" font-size="18" fill="{t["accent"]}">↗</text>'
     )
     return svg(w, h, label, body, ["sans-500", "display-600"])
@@ -959,9 +961,10 @@ def repo_grid(repos, offset=0):
 
 def write_readme(repos, has_cal, has_lc):
     """README is generated too, so the repo grid always matches the repos that exist."""
-    buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "24%")}</a>' for key, label, url in BUTTON_LINKS)
+    buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "19%")}</a>' for key, label, url in BUTTON_LINKS)
     parts = [
-        pic("hero", "Krish Mehta — I build technology for the people it usually forgets.", "100%"),
+        '<a href="https://www.krishmehta.xyz">'
+        + pic("hero", "Krish Mehta — I build technology for the people it usually forgets.", "100%") + "</a>",
         "**I'm Krish: part curiosity, part chaos, fully dependable when it counts.**",
         "My browser has more open tabs than my brain has excuses, I learn whatever the problem needs, and I'd "
         "rather laugh through a midnight deploy than panic through it. Easygoing most days. Locked in when it matters.",
