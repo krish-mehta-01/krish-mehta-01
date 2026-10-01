@@ -27,6 +27,10 @@ Before I think about models or code, I ask who a tool is really for: a farmer wh
 <br>
 </p>
 
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-lc-dark.svg"><img src="assets/h-lc-light.svg" alt="Problem solving" width="100%"></picture>
+
+<a href="https://leetcode.com/u/_krish_mehta_/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/leetcode-dark.svg"><img src="assets/leetcode-light.svg" alt="LeetCode stats: problems solved by difficulty, acceptance rate, global rank and recent problems" width="100%"></picture></a>
+
 <p align="center">
 <a href="https://www.krishmehta.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-website-dark.svg"><img src="assets/b-website-light.svg" alt="Website" width="24%"></picture></a>
 <a href="https://www.linkedin.com/in/-krish-mehta-01-05-/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-linkedin-dark.svg"><img src="assets/b-linkedin-light.svg" alt="LinkedIn" width="24%"></picture></a>
