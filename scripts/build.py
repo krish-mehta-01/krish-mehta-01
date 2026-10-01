@@ -26,13 +26,13 @@ THEMES = {
         bg1="#f3f1fb", bg2="#e6e1f8", panel="#ffffff", panel_op=0.72, edge="#ffffff",
         ink="#121218", ink2="#34333f", muted="#6c6b7b", faint="#9a99a8", accent="#5a48f5",
         line="#e7e4f1", blob=0.85,
-        heat=["#ebe8f5", "#d6cffb", "#ae9ff8", "#806cf3", "#5a48f5"],
+        heat=["#f1eff8", "#cfc6fb", "#a594f8", "#7a63f2", "#4f3be6"],
     ),
     "dark": dict(
         bg1="#13121c", bg2="#1b1830", panel="#ffffff", panel_op=0.05, edge="#2c2a3d",
         ink="#f3f1ff", ink2="#d6d3ea", muted="#b4b1cc", faint="#918da9", accent="#a99bff",
         line="#2f2c40", blob=0.28,
-        heat=["#2c2942", "#41377a", "#5e4ec0", "#8571f5", "#b9adff"],
+        heat=["#1e1c2c", "#3f3585", "#5f4fce", "#8a77fa", "#c4baff"],
     ),
 }
 LANG_COLORS = ["#5a48f5", "#8f7bff", "#c2b6ff", "#f2a7d8", "#9cc3ff", "#cfd4e6"]
@@ -266,15 +266,9 @@ def project(t, p, dark):
 
 
 # ── repository cards (live data) ────────────────────────────────────────────
-REPOS = [
-    "TOP",
-    "healthconnect-pro",
-    "Fake-News-Detection-Verification-Tool",
-    "Amdox-AI-Optimizer-Internship",
-    "KrishMehta-QSkill-AI-ML",
-    "KrishMehta-VirtualWorks-by-Emogi",
-]
-REPO_FIELDS = """name description url stargazerCount forkCount pushedAt
+# Shown first, in this order; every other public repo follows, newest push first.
+PRIORITY = ["TOP", "healthconnect-pro", "Mansakha", "Farm-Connect-"]
+REPO_FIELDS = """name description url stargazerCount forkCount pushedAt owner { login }
   primaryLanguage { name }
   languages(first: 5, orderBy: {field: SIZE, direction: DESC}) { edges { size node { name } } }"""
 LANG_TINT = {
@@ -289,21 +283,35 @@ CACHE = OUT / "repos.json"
 
 
 def fetch_repos():
+    """All public, non-fork repos (minus this profile repo) plus the contribution calendar."""
     token = os.environ.get("GH_TOKEN")
     if not token:
         return json.loads(CACHE.read_text()) if CACHE.exists() else None
-    parts = "\n".join(
-        f'r{i}: repository(owner: "{LOGIN}", name: "{name}") {{ {REPO_FIELDS} }}' for i, name in enumerate(REPOS)
-    )
+    query = f"""query {{
+      user(login: "{LOGIN}") {{
+        repositories(privacy: PUBLIC, isFork: false, first: 50, orderBy: {{field: PUSHED_AT, direction: DESC}}) {{
+          nodes {{ {REPO_FIELDS} }}
+        }}
+        contributionsCollection {{
+          contributionCalendar {{ totalContributions weeks {{ contributionDays {{ contributionCount date }} }} }}
+        }}
+      }}
+    }}"""
     req = urllib.request.Request(
         "https://api.github.com/graphql",
-        data=json.dumps({"query": "query {" + parts + "}"}).encode(),
+        data=json.dumps({"query": query}).encode(),
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
     )
-    data = json.load(urllib.request.urlopen(req, timeout=30))["data"]
-    repos = [data[f"r{i}"] for i in range(len(REPOS)) if data.get(f"r{i}")]
-    CACHE.write_text(json.dumps(repos, indent=1))   # fallback for runs where the API fails
-    return repos
+    user = json.load(urllib.request.urlopen(req, timeout=30))["data"]["user"]
+    repos = [r for r in user["repositories"]["nodes"] if r["name"].lower() != LOGIN.lower()]
+    repos.sort(key=lambda r: (PRIORITY.index(r["name"]) if r["name"] in PRIORITY else len(PRIORITY)))
+    cal = user["contributionsCollection"]["contributionCalendar"]
+    data = {"repos": repos, "calendar": {
+        "total": cal["totalContributions"],
+        "days": [d for wk in cal["weeks"] for d in wk["contributionDays"]],
+    }}
+    CACHE.write_text(json.dumps(data, indent=1))   # fallback for runs where the API fails
+    return data
 
 
 def seeded(text):
@@ -325,56 +333,141 @@ def icon_fork(x, y, c):
             '<path d="M3 4.3v1.5c0 1.6 1 2.4 2.5 2.4h3c1.5 0 2.5-.8 2.5-2.4V4.3M7 8.2v2"/></g>')
 
 
-def repo_card(t, r, dark, idx):
-    w, h = 640, 340
-    lang = (r.get("primaryLanguage") or {}).get("name", "Code")
-    tints = LANG_TINT.get(lang, (("#ece8f8", "#e4e9f8"), ("#1f1d30", "#1c2133")))
-    c1, c2 = tints[1] if dark else tints[0]
-    uid = f"r{idx}"
-    rnd = seeded(r["name"])
+# Each card gets its own hue so the grid doesn't read as one repeated tile.
+# (accent, second, third, light bg pair, dark bg pair)
+HUES = [
+    ("#6b5cff", "#a99bff", "#d4ccff", ("#ece9ff", "#f4e9fb"), ("#221d3d", "#1b1830")),   # violet
+    ("#ff6b57", "#ffa48f", "#ffd3c8", ("#ffece7", "#fdf3e6"), ("#3a1f22", "#2a1b22")),   # coral
+    ("#10b3a3", "#5fd4c7", "#b5ece5", ("#e2f6f3", "#eaf4fb"), ("#12302d", "#152330")),   # teal
+    ("#f2a20f", "#f8c45a", "#fbe2a9", ("#fff4dc", "#fbefe6"), ("#33270f", "#2a2016")),   # amber
+    ("#3b82f6", "#7fb0fa", "#c3dafd", ("#e6effe", "#ecebfd"), ("#16233d", "#1a1d36")),   # blue
+    ("#e5489a", "#f08cc0", "#f8cde3", ("#fde8f2", "#f4ebfb"), ("#371a2b", "#261a2e")),   # pink
+    ("#22a85a", "#6cd292", "#bfeccf", ("#e4f6ea", "#eef6e4"), ("#15301f", "#1b2a1c")),   # green
+]
 
-    # decorative code window: line numbers + syntax-coloured bars
-    code = (f'<rect x="20" y="20" width="360" height="132" rx="12" fill="{t["panel"]}" fill-opacity="{0.08 if dark else 0.9}"/>'
-            '<circle cx="36" cy="36" r="4.5" fill="#f28b82"/><circle cx="50" cy="36" r="4.5" fill="#fbd27a"/>'
-            '<circle cx="64" cy="36" r="4.5" fill="#8fd19e"/>'
-            f'<text x="84" y="40" class="m" font-size="11" fill="{t["muted"]}">{esc(LOGIN)}/{esc(r["name"][:24])}</text>')
-    palette = [t["accent"], "#e57aa8", "#53a7e8", t["faint"]]
+
+def lang_mix(r):
+    edges = (r.get("languages") or {}).get("edges", [])
+    total = sum(e["size"] for e in edges) or 1
+    return [(e["node"]["name"], e["size"] / total) for e in edges if e["size"] / total >= 0.01][:4]
+
+
+def visual_code(t, r, hue, rnd, dark):
+    acc, acc2, acc3 = hue[0], hue[1], hue[2]
+    owner = (r.get("owner") or {}).get("login") or LOGIN
+    out = (f'<rect x="20" y="20" width="360" height="132" rx="12" fill="{"#ffffff" if not dark else "#000000"}" fill-opacity="{0.85 if not dark else 0.25}"/>'
+           '<circle cx="36" cy="36" r="4.5" fill="#f28b82"/><circle cx="50" cy="36" r="4.5" fill="#fbd27a"/><circle cx="64" cy="36" r="4.5" fill="#8fd19e"/>'
+           f'<text x="84" y="40" class="m" font-size="11" fill="{t["muted"]}">{esc((owner + "/" + r["name"])[:36])}</text>')
+    palette = [acc, acc2, t["faint"], acc]
     for line in range(6):
         y = 60 + line * 15
-        code += f'<text x="36" y="{y + 4}" class="m" font-size="9.5" fill="{t["faint"]}">{line + 1}</text>'
+        out += f'<text x="36" y="{y + 4}" class="m" font-size="9.5" fill="{t["faint"]}">{line + 1}</text>'
         x = 56 + 14 * (1 if 0 < line < 5 and next(rnd) > 0.4 else 0)
         for _ in range(1 + int(next(rnd) * 3)):
             seg = 22 + int(next(rnd) * 70)
             if x + seg > 360:
                 break
-            code += f'<rect x="{x}" y="{y - 3}" width="{seg}" height="6" rx="3" fill="{palette[int(next(rnd) * 4)]}" opacity="0.85"/>'
+            out += f'<rect x="{x}" y="{y - 3}" width="{seg}" height="6" rx="3" fill="{palette[int(next(rnd) * 4)]}"/>'
             x += seg + 8
-
-    # language donut (real data)
-    edges = (r.get("languages") or {}).get("edges", [])
-    total = sum(e["size"] for e in edges) or 1
-    cx, cy, rad, sw = 500, 86, 44, 14
-    donut, start = "", -90.0
-    for i, e in enumerate(edges[:5]):
-        frac = e["size"] / total
-        if frac < 0.01:
-            continue
+    # donut in the card's own hue
+    mix = lang_mix(r)
+    cx, cy, rad, sw = 486, 72, 44, 14
+    shades = [acc, acc2, acc3, t["faint"]]
+    start = -90.0
+    for i, (_, frac) in enumerate(mix):
         sweep = frac * 360
         if frac > 0.999:
-            donut += f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="none" stroke="{LANG_COLORS[i]}" stroke-width="{sw}"/>'
+            out += f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="none" stroke="{shades[i]}" stroke-width="{sw}"/>'
         else:
-            a0, a1 = math.radians(start), math.radians(start + sweep - 0.8)
-            x0, y0 = cx + rad * math.cos(a0), cy + rad * math.sin(a0)
-            x1, y1 = cx + rad * math.cos(a1), cy + rad * math.sin(a1)
-            large = 1 if sweep > 180 else 0
-            donut += (f'<path d="M{x0:.1f} {y0:.1f} A{rad} {rad} 0 {large} 1 {x1:.1f} {y1:.1f}" fill="none" '
-                      f'stroke="{LANG_COLORS[i]}" stroke-width="{sw}"/>')
+            a0, a1 = math.radians(start), math.radians(start + sweep - 1.2)
+            out += (f'<path d="M{cx + rad * math.cos(a0):.1f} {cy + rad * math.sin(a0):.1f} A{rad} {rad} 0 {1 if sweep > 180 else 0} 1 '
+                    f'{cx + rad * math.cos(a1):.1f} {cy + rad * math.sin(a1):.1f}" fill="none" stroke="{shades[i]}" stroke-width="{sw}"/>')
         start += sweep
-    top_pct = round(100 * edges[0]["size"] / total) if edges else 0
-    donut += (f'<text x="{cx}" y="{cy + 2}" text-anchor="middle" class="d6" font-size="20" fill="{t["ink"]}">{top_pct}%</text>'
-              f'<text x="{cx}" y="{cy + 18}" text-anchor="middle" class="m" font-size="9.5" fill="{t["muted"]}">{esc(SHORT_LANG.get(lang, lang)[:12])}</text>')
+    if mix:
+        out += (f'<text x="{cx}" y="{cy + 3}" text-anchor="middle" class="d6" font-size="20" fill="{t["ink"]}">{round(mix[0][1] * 100)}%</text>'
+                f'<text x="{cx}" y="{cy + 19}" text-anchor="middle" class="m" font-size="9.5" fill="{t["muted"]}">{esc(SHORT_LANG.get(mix[0][0], mix[0][0])[:12])}</text>')
+    return out
+
+
+def visual_terminal(t, r, hue, rnd, dark):
+    acc, acc2 = hue[0], hue[1]
+    owner = (r.get("owner") or {}).get("login") or LOGIN
+    mix = lang_mix(r)
+    out = ('<rect x="20" y="18" width="572" height="138" rx="14" fill="#0f0e17"/>'
+           '<circle cx="38" cy="36" r="4.5" fill="#f28b82"/><circle cx="52" cy="36" r="4.5" fill="#fbd27a"/><circle cx="66" cy="36" r="4.5" fill="#8fd19e"/>'
+           f'<text x="40" y="66" class="m" font-size="13" fill="{acc2}">$ <tspan fill="#e9e7f5">git clone github.com/{esc((owner + "/" + r["name"])[:40])}</tspan></text>'
+           f'<text x="40" y="90" class="m" font-size="13" fill="#8f8ca6">Receiving objects: 100% · done.</text>')
+    x = 40
+    for i, (name, frac) in enumerate(mix[:3]):
+        label = f"{SHORT_LANG.get(name, name)} {round(frac * 100)}%"
+        wdt = 24 + len(label) * 7.9
+        col = [acc, acc2, "#8f8ca6"][i]
+        out += (f'<rect x="{x}" y="108" width="{wdt:.0f}" height="28" rx="8" fill="{col}" fill-opacity="0.18"/>'
+                f'<circle cx="{x + 13}" cy="122" r="4" fill="{col}"/>'
+                f'<text x="{x + 23}" y="127" class="m" font-size="12" fill="#e9e7f5">{esc(label)}</text>')
+        x += wdt + 8
+    out += f'<rect x="{x + 4}" y="112" width="9" height="18" fill="{acc2}"><animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/></rect>'
+    return out
+
+
+def visual_monogram(t, r, hue, rnd, dark):
+    acc, acc2, acc3 = hue[0], hue[1], hue[2]
+    words = [w for w in r["name"].replace("_", "-").split("-") if w and w.lower() != "krishmehta"]
+    mono = (words[0][:2] if len(words) == 1 else words[0][0] + words[1][0]).upper()
+    uid = "mg" + "".join(ch for ch in r["name"] if ch.isalnum())[:10]
+    out = (f'<defs><linearGradient id="{uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{acc}"/>'
+           f'<stop offset="1" stop-color="{acc2}"/></linearGradient></defs>'
+           f'<text x="40" y="128" class="d7" font-size="128" letter-spacing="-6" fill="url(#{uid})">{esc(mono)}</text>')
+    y = 44
+    for name, frac in lang_mix(r)[:3]:
+        out += (f'<text x="330" y="{y + 12}" class="s5" font-size="14" fill="{t["ink2"]}">{esc(SHORT_LANG.get(name, name))}</text>'
+                f'<text x="580" y="{y + 12}" text-anchor="end" class="m" font-size="12" fill="{t["muted"]}">{round(frac * 100)}%</text>'
+                f'<rect x="330" y="{y + 20}" width="250" height="8" rx="4" fill="{acc3}" fill-opacity="{0.35 if dark else 0.6}"/>'
+                f'<rect x="330" y="{y + 20}" width="{max(8, 250 * frac):.0f}" height="8" rx="4" fill="{acc}"/>')
+        y += 40
+    return out
+
+
+def visual_graph(t, r, hue, rnd, dark):
+    acc, acc2, acc3 = hue[0], hue[1], hue[2]
+    out = ""
+    # a main line with two feature branches that merge back, dots as commits
+    main_y, b1_y, b2_y = 96, 52, 138
+    out += f'<line x1="36" y1="{main_y}" x2="576" y2="{main_y}" stroke="{acc}" stroke-width="4" stroke-linecap="round"/>'
+    out += (f'<path d="M110 {main_y} C140 {main_y} 140 {b1_y} 170 {b1_y} L300 {b1_y} C330 {b1_y} 330 {main_y} 360 {main_y}" '
+            f'fill="none" stroke="{acc2}" stroke-width="4" stroke-linecap="round"/>')
+    out += (f'<path d="M330 {main_y} C360 {main_y} 360 {b2_y} 390 {b2_y} L480 {b2_y} C510 {b2_y} 510 {main_y} 540 {main_y}" '
+            f'fill="none" stroke="{acc3}" stroke-width="4" stroke-linecap="round"/>')
+    for x in (36, 110, 230, 360, 450, 540, 576):
+        out += f'<circle cx="{x}" cy="{main_y}" r="8" fill="{t["bg1"]}" stroke="{acc}" stroke-width="3.5"/>'
+    for x in (200, 260):
+        out += f'<circle cx="{x}" cy="{b1_y}" r="7" fill="{t["bg1"]}" stroke="{acc2}" stroke-width="3.5"/>'
+    for x in (420,):
+        out += f'<circle cx="{x}" cy="{b2_y}" r="7" fill="{t["bg1"]}" stroke="{acc3}" stroke-width="3.5"/>'
+    out += f'<text x="36" y="40" class="m" font-size="11" fill="{t["muted"]}">main</text>'
+    return out
+
+
+VISUALS = [visual_code, visual_terminal, visual_monogram, visual_graph]
+
+
+def repo_card(t, r, dark, idx):
+    w, h = 640, 340
+    hue = HUES[idx % len(HUES)]
+    acc = hue[0]
+    c1, c2 = hue[4] if dark else hue[3]
+    # rotate visual styles; offset per row so cards side by side never share a style
+    visual = VISUALS[(idx + (idx // 2)) % len(VISUALS)]
+    lang = (r.get("primaryLanguage") or {}).get("name", "Code")
+    uid = f"r{idx}"
+    rnd = seeded(r["name"])
 
     updated = date.fromisoformat(r["pushedAt"][:10]).strftime("%b %Y").upper()
+    owner = (r.get("owner") or {}).get("login", LOGIN)
+    team = owner.lower() != LOGIN.lower()
+    if team and not r.get("description"):
+        r = dict(r, description=f"Team project I contributed to, hosted by @{owner}.")
+
     body = (
         f'<defs><clipPath id="c{uid}"><rect width="{w}" height="{h}" rx="26"/></clipPath>'
         f'<linearGradient id="g{uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient></defs>'
@@ -382,22 +475,94 @@ def repo_card(t, r, dark, idx):
         f'<rect width="{w}" height="{h}" fill="{t["bg1"]}"/>'
         f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
         f'<rect x="14" y="14" width="{w - 28}" height="172" rx="18" fill="url(#g{uid})"/>'
-        f'<g transform="translate(14 14)">{code}</g>{donut}'
-        f'<text x="30" y="216" class="m" font-size="12" letter-spacing="1.2" fill="{t["faint"]}">{esc(lang.upper())} · UPDATED {updated}</text>'
-        f'<text x="28" y="248" class="d6" font-size="25" letter-spacing="-0.5" fill="{t["ink"]}">{esc(r["name"])}</text>'
-        f'<text x="{w - 34}" y="248" text-anchor="end" class="d6" font-size="24" fill="{t["accent"]}">↗</text>'
+        f'<g transform="translate(14 14)">{visual(t, r, hue, rnd, dark)}</g>'
+        f'<rect x="30" y="204" width="8" height="8" rx="2" fill="{acc}"/>'
+        f'<text x="46" y="212" class="m" font-size="12" letter-spacing="1.2" fill="{t["faint"]}">{esc(lang.upper())} · UPDATED {updated}{" · WITH @" + esc(owner.upper()) if team else ""}</text>'
+        f'<text x="28" y="246" class="d6" font-size="25" letter-spacing="-0.5" fill="{t["ink"]}">{esc(r["name"])}</text>'
+        f'<text x="{w - 34}" y="246" text-anchor="end" class="d6" font-size="24" fill="{acc}">↗</text>'
     )
     lines = wrap(r.get("description") or "", 78)
     if len(lines) > 2:   # keep cards even: two lines, then an ellipsis
         lines = [lines[0], lines[1].rstrip(" ,.:;") + "…"]
     for i, line in enumerate(lines):
-        body += f'<text x="30" y="{276 + i * 21}" class="s4" font-size="14.5" fill="{t["muted"]}">{esc(line)}</text>'
+        body += f'<text x="30" y="{274 + i * 21}" class="s4" font-size="14.5" fill="{t["muted"]}">{esc(line)}</text>'
     body += (
         icon_star(30, 308, t["muted"]) + f'<text x="50" y="320" class="s5" font-size="13" fill="{t["ink2"]}">{r["stargazerCount"]}</text>'
         + icon_fork(82, 308, t["muted"]) + f'<text x="102" y="320" class="s5" font-size="13" fill="{t["ink2"]}">{r["forkCount"]}</text>'
         + f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="26" fill="none" stroke="{t["edge"]}"/></g>'
     )
-    return svg(w, h, f'{r["name"]}: {r.get("description") or ""}', body, ["display-600", "sans-400", "sans-500", "mono-500"])
+    return svg(w, h, f'{r["name"]}: {r.get("description") or ""}', body,
+               ["display-700", "display-600", "sans-400", "sans-500", "mono-500"])
+
+
+# ── contribution heatmap (live data) ─────────────────────────────────────────
+def streaks(days):
+    longest = current = run = 0
+    for d in days:
+        run = run + 1 if d["contributionCount"] > 0 else 0
+        longest = max(longest, run)
+    for d in reversed(days):
+        if d["contributionCount"] > 0:
+            current += 1
+        elif current or d is not days[-1]:   # today may still be empty
+            break
+    return longest, current
+
+
+def heatmap_card(t, cal, dark):
+    w, h = 1280, 440
+    days = cal["days"][-371:]
+    soft = dict(t, blob=t["blob"] * 0.4)
+    body = backdrop(soft, w, h, [(80, 460, 150, "#cfc3ff"), (1250, -20, 140, "#f5cbe9")], "hm")
+    body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
+
+    longest, current = streaks(days)
+    best = max(days, key=lambda d: d["contributionCount"])
+    active = sum(1 for d in days if d["contributionCount"] > 0)
+    stats = [(f'{cal["total"]:,}', "contributions"), (str(active), "active days"),
+             (f"{longest}d", "longest streak"), (f"{current}d", "current streak"),
+             (str(best["contributionCount"]), "best day")]
+    body += f'<text x="56" y="62" class="m" font-size="13" letter-spacing="1.2" fill="{t["muted"]}">CONTRIBUTIONS · LAST 12 MONTHS</text>'
+    for i, (v, l) in enumerate(stats):
+        x = 56 + i * 200
+        body += (f'<text x="{x}" y="116" class="d6" font-size="38" letter-spacing="-1" fill="{t["ink"]}">{v}</text>'
+                 f'<text x="{x + 2}" y="142" class="s4" font-size="14.5" fill="{t["ink2"]}">{l}</text>')
+
+    # the grid: big cells, visible empty days (outlined), readable labels
+    x0, y0, cell, gap = 104, 196, 16, 4.6
+    step = cell + gap
+    start = date.fromisoformat(days[0]["date"])
+    offset = (start.weekday() + 1) % 7          # GitHub weeks start on Sunday
+    peak = max(d["contributionCount"] for d in days) or 1
+    empty_stroke = "#3d3955" if dark else "#dcd7ee"
+    for row, label in ((1, "Mon"), (3, "Wed"), (5, "Fri")):
+        body += f'<text x="{x0 - 14}" y="{y0 + row * step + 12}" text-anchor="end" class="m" font-size="12.5" fill="{t["muted"]}">{label}</text>'
+    last_month = None
+    for i, d in enumerate(days):
+        k = i + offset
+        col, row = k // 7, k % 7
+        n = d["contributionCount"]
+        lvl = 0 if n == 0 else min(4, 1 + int(3.999 * (n / peak) ** 0.5))
+        x, y = x0 + col * step, y0 + row * step
+        stroke = f' stroke="{empty_stroke}" stroke-width="1"' if lvl == 0 else ""
+        body += f'<rect x="{x:.1f}" y="{y:.1f}" width="{cell}" height="{cell}" rx="4" fill="{t["heat"][lvl]}"{stroke}/>'
+        dt = date.fromisoformat(d["date"])
+        if row == 0 and dt.day <= 7 and dt.month != last_month:
+            body += f'<text x="{x:.1f}" y="{y0 - 14}" class="m" font-size="13" fill="{t["ink2"]}">{dt.strftime("%b")}</text>'
+            last_month = dt.month
+
+    ly = y0 + 7 * step + 22
+    lx = w - 56 - (5 * 22 + 84)
+    body += f'<text x="{lx}" y="{ly + 12}" class="m" font-size="12.5" fill="{t["muted"]}">less</text>'
+    for i, c in enumerate(t["heat"]):
+        stroke = f' stroke="{empty_stroke}"' if i == 0 else ""
+        body += f'<rect x="{lx + 40 + i * 22}" y="{ly}" width="16" height="16" rx="4" fill="{c}"{stroke}/>'
+    body += f'<text x="{lx + 40 + 5 * 22 + 4}" y="{ly + 12}" class="m" font-size="12.5" fill="{t["muted"]}">more</text>'
+    body += (f'<text x="{x0}" y="{ly + 12}" class="s4" font-size="13.5" fill="{t["muted"]}">'
+             f'Best day: {best["contributionCount"]} contributions on {date.fromisoformat(best["date"]).strftime("%d %b %Y")}</text>')
+    body += frame(t, w, h)
+    return svg(w, h, f'{cal["total"]} contributions in the last 12 months', body,
+               ["display-600", "sans-400", "mono-500"])
 
 
 # ── LeetCode card (live data) ────────────────────────────────────────────────
@@ -438,7 +603,6 @@ def leetcode_card(t, d):
     solved = {q["difficulty"]: q["count"] for q in d["matchedUser"]["submitStats"]["acSubmissionNum"]}
     ac = {q["difficulty"]: q["submissions"] for q in d["matchedUser"]["submitStats"]["acSubmissionNum"]}
     sub = {q["difficulty"]: q["submissions"] for q in d["matchedUser"]["submitStats"]["totalSubmissionNum"]}
-    acceptance = round(100 * ac.get("All", 0) / max(1, sub.get("All", 1)))
     rank = d["matchedUser"]["profile"]["ranking"]
 
     soft = dict(t, blob=t["blob"] * 0.5)
@@ -483,10 +647,8 @@ def leetcode_card(t, d):
 
     # headline stats + recent problems
     body += (
-        f'<text x="844" y="132" class="d6" font-size="40" letter-spacing="-1" fill="{t["ink"]}">{acceptance}%</text>'
-        f'<text x="846" y="158" class="s4" font-size="14" fill="{t["muted"]}">acceptance</text>'
-        f'<text x="1030" y="132" class="d6" font-size="40" letter-spacing="-1" fill="{t["ink"]}">#{rank:,}</text>'
-        f'<text x="1032" y="158" class="s4" font-size="14" fill="{t["muted"]}">global rank</text>'
+        f'<text x="844" y="132" class="d6" font-size="40" letter-spacing="-1" fill="{t["ink"]}">#{rank:,}</text>'
+        f'<text x="846" y="158" class="s4" font-size="14" fill="{t["muted"]}">global rank</text>'
         f'<text x="846" y="212" class="m" font-size="12" letter-spacing="1.2" fill="{t["muted"]}">RECENTLY SOLVED</text>'
     )
     for i, sub_ in enumerate((d.get("recentAcSubmissionList") or [])[:3]):
@@ -499,8 +661,51 @@ def leetcode_card(t, d):
             f'<text x="1224" y="{y}" text-anchor="end" class="m" font-size="12" fill="{t["faint"]}">{when}</text>'
         )
     body += frame(t, w, h)
-    return svg(w, h, f'LeetCode: {solved.get("All", 0)} problems solved, {acceptance}% acceptance',
+    return svg(w, h, f'LeetCode: {solved.get("All", 0)} problems solved, global rank {rank:,}',
                body, ["display-700", "display-600", "sans-400", "sans-500", "mono-500"])
+
+
+# ── contact card ─────────────────────────────────────────────────────────────
+CONTACT = [
+    ("email", "Email", "krish.mehta.0105@gmail.com"),
+    ("phone", "Phone", "+91 85808 38656"),
+    ("pin", "Based in", "Chennai · from Shimla"),
+]
+CONTACT_ICONS = {
+    "email": '<rect x="-10" y="-7.5" width="20" height="15" rx="3" fill="none" stroke="C" stroke-width="1.9"/><path d="M-9 -6 L0 1 L9 -6" fill="none" stroke="C" stroke-width="1.9"/>',
+    "phone": '<path d="M-6.5 -9.5h3.6l1.8 4.6-2.3 1.5a11 11 0 0 0 5.8 5.8l1.5-2.3 4.6 1.8v3.6a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1-8.5-7.3a2 2 0 0 1 2-2.2z" fill="none" stroke="C" stroke-width="1.8" stroke-linejoin="round"/>',
+    "pin": '<path d="M0 10s-7.5-6.6-7.5-12.2a7.5 7.5 0 0 1 15 0C7.5 3.4 0 10 0 10z" fill="none" stroke="C" stroke-width="1.9"/><circle cx="0" cy="-2.3" r="2.6" fill="none" stroke="C" stroke-width="1.9"/>',
+}
+
+
+def contact_card(t):
+    w, h = 1280, 300
+    soft = dict(t, blob=t["blob"] * 0.5)
+    body = backdrop(soft, w, h, [(1180, 330, 140, "#cfc3ff"), (60, -30, 120, "#c3d8ff")], "ct")
+    body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
+    for i, (key, label, value) in enumerate(CONTACT):
+        x = 56 + i * 400
+        body += (
+            f'<circle cx="{x + 26}" cy="92" r="26" fill="{t["accent"]}" fill-opacity="0.12"/>'
+            f'<g transform="translate({x + 26} 92)">{CONTACT_ICONS[key].replace("C", t["accent"])}</g>'
+            f'<text x="{x + 70}" y="84" class="m" font-size="12.5" letter-spacing="1.2" fill="{t["muted"]}">{label.upper()}</text>'
+            f'<text x="{x + 70}" y="112" class="d6" font-size="23" letter-spacing="-0.4" fill="{t["ink"]}">{esc(value)}</text>'
+        )
+    body += f'<line x1="56" y1="164" x2="{w - 56}" y2="164" stroke="{t["line"]}"/>'
+    chats = [("Telegram", "#26A5E4"), ("WhatsApp", "#1faa53"), ("Discord", "#5865F2"), ("Instagram", "#d62976")]
+    body += f'<text x="56" y="212" class="s5" font-size="18" fill="{t["ink2"]}">Prefer chat? Message me on-site at <tspan class="d6" fill="{t["accent"]}">krishmehta.xyz/hub</tspan></text>'
+    x = 56
+    for name, color in chats:
+        width = 26 + len(name) * 8.6 + 18
+        body += (f'<rect x="{x}" y="232" width="{width:.0f}" height="34" rx="17" fill="{color}" fill-opacity="0.13"/>'
+                 f'<circle cx="{x + 17}" cy="249" r="5" fill="{color}"/>'
+                 f'<text x="{x + 29}" y="254" class="s5" font-size="14" fill="{t["ink2"]}">{name}</text>')
+        x += width + 10
+    body += (f'<text x="{w - 56}" y="212" text-anchor="end" class="s4" font-size="15" fill="{t["muted"]}">'
+             'Usually replies within a day</text>')
+    body += frame(t, w, h)
+    return svg(w, h, "Contact: krish.mehta.0105@gmail.com, +91 85808 38656, Chennai", body,
+               ["display-600", "sans-400", "sans-500", "mono-500"])
 
 
 # ── buttons ──────────────────────────────────────────────────────────────────
@@ -510,7 +715,13 @@ ICONS = {
     "email": '<rect x="-9.5" y="-7" width="19" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M-8.5 -5.5 L0 1 L8.5 -5.5" fill="none" stroke="currentColor" stroke-width="1.8"/>',
     "leetcode": '<path d="M-4.5 -6.5 L-10 0 L-4.5 6.5 M4.5 -6.5 L10 0 L4.5 6.5 M1.6 -9 L-1.6 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
 }
-BUTTONS = [("website", "Website"), ("linkedin", "LinkedIn"), ("email", "Email"), ("leetcode", "LeetCode")]
+BUTTON_LINKS = [
+    ("website", "Website", "https://www.krishmehta.xyz"),
+    ("linkedin", "LinkedIn", "https://www.linkedin.com/in/-krish-mehta-01-05-/"),
+    ("email", "Email", "mailto:krish.mehta.0105@gmail.com"),
+    ("leetcode", "LeetCode", "https://leetcode.com/u/_krish_mehta_/"),
+]
+BUTTONS = [(k, l) for k, l, _ in BUTTON_LINKS]
 
 
 def button(t, key, label, dark):
@@ -529,31 +740,83 @@ def button(t, key, label, dark):
 # ── main ─────────────────────────────────────────────────────────────────────
 def main():
     OUT.mkdir(exist_ok=True)
-    repos = None
     try:
-        repos = fetch_repos()
+        data = fetch_repos()
     except Exception as e:  # never fail the whole build because the API hiccuped
-        print("repo fetch failed, using cache:", e)
-        repos = json.loads(CACHE.read_text()) if CACHE.exists() else None
+        print("github fetch failed, using cache:", e)
+        data = json.loads(CACHE.read_text()) if CACHE.exists() else None
+    repos = (data or {}).get("repos", [])
+    cal = (data or {}).get("calendar")
     lc = fetch_leetcode()
-    for pattern in ("activity-*.svg", "h-activity-*.svg"):
-        for old in OUT.glob(pattern):
-            old.unlink()
+    # clear everything generated before, so removed sections/repos don't linger
+    for old in OUT.glob("*.svg"):
+        old.unlink()
     for mode, t in THEMES.items():
         dark = mode == "dark"
         (OUT / f"hero-{mode}.svg").write_text(hero(t), encoding="utf8")
-        (OUT / f"h-work-{mode}.svg").write_text(header(t, "01", "Selected work", "Things I've", "built"), encoding="utf8")
-        (OUT / f"h-repos-{mode}.svg").write_text(header(t, "02", "Repositories", "Read the", "code"), encoding="utf8")
-        for p in PROJECTS:
-            (OUT / f"p-{p['slug']}-{mode}.svg").write_text(project(t, p, dark), encoding="utf8")
-        for i, r in enumerate(repos or []):
+        (OUT / f"h-repos-{mode}.svg").write_text(header(t, "04", "Repositories", "Read the", "code"), encoding="utf8")
+        for i, r in enumerate(repos):
             (OUT / f"r-{i}-{mode}.svg").write_text(repo_card(t, r, dark, i), encoding="utf8")
-        (OUT / f"h-lc-{mode}.svg").write_text(header(t, "03", "Problem solving", "Daily", "practice"), encoding="utf8")
+        (OUT / f"h-heat-{mode}.svg").write_text(header(t, "01", "Contributions", "A year of", "showing up"), encoding="utf8")
+        if cal:
+            (OUT / f"heatmap-{mode}.svg").write_text(heatmap_card(t, cal, dark), encoding="utf8")
+        (OUT / f"h-lc-{mode}.svg").write_text(header(t, "02", "Problem solving", "Daily", "practice"), encoding="utf8")
         if lc:
             (OUT / f"leetcode-{mode}.svg").write_text(leetcode_card(t, lc), encoding="utf8")
+        (OUT / f"h-contact-{mode}.svg").write_text(header(t, "03", "Contact", "Let's", "talk"), encoding="utf8")
+        (OUT / f"contact-{mode}.svg").write_text(contact_card(t), encoding="utf8")
         for key, label in BUTTONS:
             (OUT / f"b-{key}-{mode}.svg").write_text(button(t, key, label, dark), encoding="utf8")
-    print("built", len(list(OUT.glob("*.svg"))), "svgs,", len(repos or []), "repos")
+    write_readme(repos, bool(cal), bool(lc))
+    print("built", len(list(OUT.glob("*.svg"))), "svgs,", len(repos), "repos")
+
+
+def pic(name, alt, width):
+    return (f'<picture><source media="(prefers-color-scheme: dark)" srcset="assets/{name}-dark.svg">'
+            f'<img src="assets/{name}-light.svg" alt="{esc(alt)}" width="{width}"></picture>')
+
+
+NL = chr(10)
+
+
+def repo_grid(repos, offset=0):
+    out = ""
+    for i, r in enumerate(repos):
+        n = i + offset
+        out += f'<a href="{r["url"]}">{pic(f"r-{n}", r["name"] + ": " + (r.get("description") or ""), "49%")}</a>'
+        out += (NL + "<br>" + NL) if i % 2 else NL
+    return out
+
+
+def write_readme(repos, has_cal, has_lc):
+    """README is generated too, so the repo grid always matches the repos that exist."""
+    buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "24%")}</a>' for key, label, url in BUTTON_LINKS)
+    parts = [
+        pic("hero", "Krish Mehta — I build technology for the people it usually forgets.", "100%"),
+        "Hi, I'm Krish. I'm curious about pretty much everything, which is great for learning and terrible "
+        "for closing browser tabs. I pick things up fast, adapt when plans change, and stay easygoing about "
+        "most of life. When something actually matters, though, I switch on: I show up, I'm reliable, and I "
+        "do it properly.",
+    ]
+    if has_cal:
+        parts += [pic("h-heat", "Contributions", "100%"),
+                  pic("heatmap", "Contribution heatmap for the last 12 months", "100%")]
+    if has_lc:
+        parts += [pic("h-lc", "Problem solving", "100%"),
+                  f'<a href="https://leetcode.com/u/{LC_USER}/">{pic("leetcode", "LeetCode stats", "100%")}</a>']
+    parts += [pic("h-contact", "Contact", "100%"),
+              '<a href="mailto:krish.mehta.0105@gmail.com">'
+              + pic("contact", "Email krish.mehta.0105@gmail.com · Phone +91 85808 38656 · Chennai", "100%") + "</a>",
+              '<p align="center">' + NL + buttons + NL + "</p>"]
+    # Repositories come last: four on show, the rest behind a native <details> toggle
+    top, rest = repos[:4], repos[4:]
+    parts += [pic("h-repos", "Repositories", "100%"),
+              '<p align="center">' + NL + repo_grid(top) + "</p>"]
+    if rest:
+        parts.append("<details>" + NL
+                     + f"<summary><b>Show all {len(repos)} repositories</b></summary>" + NL + "<br>" + NL + NL
+                     + '<p align="center">' + NL + repo_grid(rest, offset=4) + "</p>" + NL + "</details>")
+    (ROOT / "README.md").write_text((NL + NL).join(parts) + NL, encoding="utf8")
 
 
 if __name__ == "__main__":
