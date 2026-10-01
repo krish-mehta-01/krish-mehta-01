@@ -1,6 +1,6 @@
 ### Hi, I'm Krish.
 
-I train computer vision models for agriculture, write papers about the ones that work, and build full-stack apps when an idea needs a proper home. Pre-final year B.Tech (Honours) IT at RMK Engineering College, Chennai. Originally from Solan, Himachal Pradesh.
+I train computer vision models for agriculture, write papers about the ones that work, and build full-stack apps when an idea needs a proper home. Pre-final year B.Tech (Honours) IT at RMK Engineering College, Chennai. Originally from Shimla, Himachal Pradesh.
 
 - **Research:** tea leaf disease detection with YOLOv26m + a ConvNeXtV2–Swin ensemble (97.3% mAP, under review at MDPI Agriculture) · IRRIS sorting paper (first prize, RMKEC)
 - **Building:** [HealthConnect Pro](https://github.com/krish-mehta-01/healthconnect-pro), live on Zoho Catalyst · Mansakha (SIH 2026) · Q-NETSIM digital twin for a 5G DQN testbed
