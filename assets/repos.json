@@ -1,0 +1,188 @@
+[
+ {
+  "name": "TOP",
+  "description": "TOP \u2014 Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state.",
+  "url": "https://github.com/krish-mehta-01/TOP",
+  "stargazerCount": 0,
+  "forkCount": 0,
+  "pushedAt": "2026-08-17T11:33:34Z",
+  "primaryLanguage": {
+   "name": "Python"
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 349594,
+     "node": {
+      "name": "Python"
+     }
+    },
+    {
+     "size": 199541,
+     "node": {
+      "name": "HTML"
+     }
+    },
+    {
+     "size": 48698,
+     "node": {
+      "name": "JavaScript"
+     }
+    },
+    {
+     "size": 32903,
+     "node": {
+      "name": "CSS"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "name": "healthconnect-pro",
+  "description": "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst.",
+  "url": "https://github.com/krish-mehta-01/healthconnect-pro",
+  "stargazerCount": 0,
+  "forkCount": 0,
+  "pushedAt": "2026-08-02T14:20:42Z",
+  "primaryLanguage": {
+   "name": "TypeScript"
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 207204,
+     "node": {
+      "name": "TypeScript"
+     }
+    },
+    {
+     "size": 57648,
+     "node": {
+      "name": "JavaScript"
+     }
+    },
+    {
+     "size": 55889,
+     "node": {
+      "name": "CSS"
+     }
+    },
+    {
+     "size": 1113,
+     "node": {
+      "name": "HTML"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "name": "Fake-News-Detection-Verification-Tool",
+  "description": "TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship).",
+  "url": "https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool",
+  "stargazerCount": 0,
+  "forkCount": 0,
+  "pushedAt": "2026-02-02T15:03:03Z",
+  "primaryLanguage": {
+   "name": "HTML"
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 1666743,
+     "node": {
+      "name": "HTML"
+     }
+    },
+    {
+     "size": 263885,
+     "node": {
+      "name": "Python"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "name": "Amdox-AI-Optimizer-Internship",
+  "description": "AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship).",
+  "url": "https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship",
+  "stargazerCount": 0,
+  "forkCount": 0,
+  "pushedAt": "2026-02-12T09:26:45Z",
+  "primaryLanguage": {
+   "name": "Python"
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 5076,
+     "node": {
+      "name": "Python"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "name": "KrishMehta-QSkill-AI-ML",
+  "description": "End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship).",
+  "url": "https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML",
+  "stargazerCount": 0,
+  "forkCount": 0,
+  "pushedAt": "2026-06-26T12:37:56Z",
+  "primaryLanguage": {
+   "name": "Jupyter Notebook"
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 7994,
+     "node": {
+      "name": "Jupyter Notebook"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "name": "KrishMehta-VirtualWorks-by-Emogi",
+  "description": "Cybersecurity tools from my VirtualWorks internship: email risk analyzer, password checker, port status checker, login control and file protection.",
+  "url": "https://github.com/krish-mehta-01/KrishMehta-VirtualWorks-by-Emogi",
+  "stargazerCount": 0,
+  "forkCount": 0,
+  "pushedAt": "2026-06-04T05:47:40Z",
+  "primaryLanguage": {
+   "name": "Python"
+  },
+  "languages": {
+   "edges": [
+    {
+     "size": 73653,
+     "node": {
+      "name": "Python"
+     }
+    },
+    {
+     "size": 35945,
+     "node": {
+      "name": "JavaScript"
+     }
+    },
+    {
+     "size": 19235,
+     "node": {
+      "name": "CSS"
+     }
+    },
+    {
+     "size": 15301,
+     "node": {
+      "name": "HTML"
+     }
+    }
+   ]
+  }
+ }
+]

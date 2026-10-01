@@ -10,9 +10,10 @@ GitHub's image proxy never has to fetch anything.
 import base64
 import html
 import json
+import math
 import os
 import urllib.request
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -29,9 +30,9 @@ THEMES = {
     ),
     "dark": dict(
         bg1="#13121c", bg2="#1b1830", panel="#ffffff", panel_op=0.05, edge="#2c2a3d",
-        ink="#f3f1ff", ink2="#d6d3ea", muted="#a9a6c2", faint="#77748f", accent="#a99bff",
-        line="#2a2839", blob=0.28,
-        heat=["#221f31", "#352d63", "#5243a8", "#7a66ea", "#a99bff"],
+        ink="#f3f1ff", ink2="#d6d3ea", muted="#b4b1cc", faint="#918da9", accent="#a99bff",
+        line="#2f2c40", blob=0.28,
+        heat=["#2c2942", "#41377a", "#5e4ec0", "#8571f5", "#b9adff"],
     ),
 }
 LANG_COLORS = ["#5a48f5", "#8f7bff", "#c2b6ff", "#f2a7d8", "#9cc3ff", "#cfd4e6"]
@@ -264,111 +265,139 @@ def project(t, p, dark):
     return svg(w, h, f'{p["name"]}: {p["desc"]}', body, ["display-600", "sans-400", "sans-500", "mono-500"])
 
 
-# ── activity strip (live data) ───────────────────────────────────────────────
-QUERY = """
-query($login: String!) {
-  user(login: $login) {
-    contributionsCollection {
-      contributionCalendar { totalContributions weeks { contributionDays { contributionCount date } } }
-    }
-    repositories(ownerAffiliations: OWNER, isFork: false, first: 100) {
-      nodes { languages(first: 10, orderBy: {field: SIZE, direction: DESC}) { edges { size node { name } } } }
-    }
-  }
-}"""
-IGNORED_LANGS = {"HTML", "CSS", "Jupyter Notebook", "PLpgSQL", "Dockerfile", "Shell", "Batchfile", "Procfile"}
+# ── repository cards (live data) ────────────────────────────────────────────
+REPOS = [
+    "TOP",
+    "healthconnect-pro",
+    "Fake-News-Detection-Verification-Tool",
+    "Amdox-AI-Optimizer-Internship",
+    "KrishMehta-QSkill-AI-ML",
+    "KrishMehta-VirtualWorks-by-Emogi",
+]
+REPO_FIELDS = """name description url stargazerCount forkCount pushedAt
+  primaryLanguage { name }
+  languages(first: 5, orderBy: {field: SIZE, direction: DESC}) { edges { size node { name } } }"""
+LANG_TINT = {
+    "Python": (("#e3e9f7", "#eee8fb"), ("#1c2233", "#221e33")),
+    "TypeScript": (("#e2ebfb", "#ece6fa"), ("#1b2236", "#211e34")),
+    "JavaScript": (("#f8f3dc", "#eee8fb"), ("#2a2720", "#221e33")),
+    "HTML": (("#fbeee8", "#f3ebdf"), ("#2a2226", "#2a2420")),
+    "Jupyter Notebook": (("#f7ecdf", "#eee8fb"), ("#2a2420", "#221e33")),
+}
+SHORT_LANG = {"Jupyter Notebook": "Notebook", "TypeScript": "TypeScript"}
+CACHE = OUT / "repos.json"
 
 
-def fetch_activity():
+def fetch_repos():
     token = os.environ.get("GH_TOKEN")
     if not token:
-        return None
+        return json.loads(CACHE.read_text()) if CACHE.exists() else None
+    parts = "\n".join(
+        f'r{i}: repository(owner: "{LOGIN}", name: "{name}") {{ {REPO_FIELDS} }}' for i, name in enumerate(REPOS)
+    )
     req = urllib.request.Request(
         "https://api.github.com/graphql",
-        data=json.dumps({"query": QUERY, "variables": {"login": LOGIN}}).encode(),
+        data=json.dumps({"query": "query {" + parts + "}"}).encode(),
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
     )
-    data = json.load(urllib.request.urlopen(req, timeout=30))["data"]["user"]
-    cal = data["contributionsCollection"]["contributionCalendar"]
-    days = [d for wk in cal["weeks"] for d in wk["contributionDays"]]
-    sizes = {}
-    for repo in data["repositories"]["nodes"]:
-        for e in repo["languages"]["edges"]:
-            name = e["node"]["name"]
-            if name not in IGNORED_LANGS:
-                sizes[name] = sizes.get(name, 0) + e["size"]
-    return dict(total=cal["totalContributions"], days=days, langs=sizes)
+    data = json.load(urllib.request.urlopen(req, timeout=30))["data"]
+    repos = [data[f"r{i}"] for i in range(len(REPOS)) if data.get(f"r{i}")]
+    CACHE.write_text(json.dumps(repos, indent=1))   # fallback for runs where the API fails
+    return repos
 
 
-def activity(t, data):
-    w, h = 1280, 330
-    body = backdrop(t, w, h, [(120, 330, 140, "#cfc3ff"), (1240, 20, 130, "#f5cbe9")], "a")
-    body += f'<rect x="0" y="0" width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
+def seeded(text):
+    """Tiny deterministic PRNG so each repo always gets the same code-line pattern."""
+    x = sum(ord(c) * (i + 1) for i, c in enumerate(text)) or 1
+    while True:
+        x = (x * 1103515245 + 12345) & 0x7FFFFFFF
+        yield x / 0x7FFFFFFF
 
-    # left: numbers
-    total = data["total"] if data else 0
-    body += (
-        f'<text x="56" y="76" class="m" font-size="12.5" letter-spacing="1.2" fill="{t["faint"]}">LAST 12 MONTHS</text>'
-        f'<text x="52" y="152" class="d7" font-size="76" letter-spacing="-2.5" fill="{t["ink"]}">{total:,}</text>'
-        f'<text x="56" y="182" class="s5" font-size="16" fill="{t["muted"]}">contributions on GitHub</text>'
+
+def icon_star(x, y, c):
+    return (f'<path transform="translate({x} {y})" d="M7 0.8l1.9 3.9 4.3.6-3.1 3 .7 4.3L7 10.6l-3.8 2 .7-4.3-3.1-3 '
+            f'4.3-.6z" fill="none" stroke="{c}" stroke-width="1.4" stroke-linejoin="round"/>')
+
+
+def icon_fork(x, y, c):
+    return (f'<g transform="translate({x} {y})" fill="none" stroke="{c}" stroke-width="1.4">'
+            '<circle cx="3" cy="2.5" r="1.8"/><circle cx="11" cy="2.5" r="1.8"/><circle cx="7" cy="12" r="1.8"/>'
+            '<path d="M3 4.3v1.5c0 1.6 1 2.4 2.5 2.4h3c1.5 0 2.5-.8 2.5-2.4V4.3M7 8.2v2"/></g>')
+
+
+def repo_card(t, r, dark, idx):
+    w, h = 640, 340
+    lang = (r.get("primaryLanguage") or {}).get("name", "Code")
+    tints = LANG_TINT.get(lang, (("#ece8f8", "#e4e9f8"), ("#1f1d30", "#1c2133")))
+    c1, c2 = tints[1] if dark else tints[0]
+    uid = f"r{idx}"
+    rnd = seeded(r["name"])
+
+    # decorative code window: line numbers + syntax-coloured bars
+    code = (f'<rect x="20" y="20" width="360" height="132" rx="12" fill="{t["panel"]}" fill-opacity="{0.08 if dark else 0.9}"/>'
+            '<circle cx="36" cy="36" r="4.5" fill="#f28b82"/><circle cx="50" cy="36" r="4.5" fill="#fbd27a"/>'
+            '<circle cx="64" cy="36" r="4.5" fill="#8fd19e"/>'
+            f'<text x="84" y="40" class="m" font-size="11" fill="{t["muted"]}">{esc(LOGIN)}/{esc(r["name"][:24])}</text>')
+    palette = [t["accent"], "#e57aa8", "#53a7e8", t["faint"]]
+    for line in range(6):
+        y = 60 + line * 15
+        code += f'<text x="36" y="{y + 4}" class="m" font-size="9.5" fill="{t["faint"]}">{line + 1}</text>'
+        x = 56 + 14 * (1 if 0 < line < 5 and next(rnd) > 0.4 else 0)
+        for _ in range(1 + int(next(rnd) * 3)):
+            seg = 22 + int(next(rnd) * 70)
+            if x + seg > 360:
+                break
+            code += f'<rect x="{x}" y="{y - 3}" width="{seg}" height="6" rx="3" fill="{palette[int(next(rnd) * 4)]}" opacity="0.85"/>'
+            x += seg + 8
+
+    # language donut (real data)
+    edges = (r.get("languages") or {}).get("edges", [])
+    total = sum(e["size"] for e in edges) or 1
+    cx, cy, rad, sw = 500, 86, 44, 14
+    donut, start = "", -90.0
+    for i, e in enumerate(edges[:5]):
+        frac = e["size"] / total
+        if frac < 0.01:
+            continue
+        sweep = frac * 360
+        if frac > 0.999:
+            donut += f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="none" stroke="{LANG_COLORS[i]}" stroke-width="{sw}"/>'
+        else:
+            a0, a1 = math.radians(start), math.radians(start + sweep - 0.8)
+            x0, y0 = cx + rad * math.cos(a0), cy + rad * math.sin(a0)
+            x1, y1 = cx + rad * math.cos(a1), cy + rad * math.sin(a1)
+            large = 1 if sweep > 180 else 0
+            donut += (f'<path d="M{x0:.1f} {y0:.1f} A{rad} {rad} 0 {large} 1 {x1:.1f} {y1:.1f}" fill="none" '
+                      f'stroke="{LANG_COLORS[i]}" stroke-width="{sw}"/>')
+        start += sweep
+    top_pct = round(100 * edges[0]["size"] / total) if edges else 0
+    donut += (f'<text x="{cx}" y="{cy + 2}" text-anchor="middle" class="d6" font-size="20" fill="{t["ink"]}">{top_pct}%</text>'
+              f'<text x="{cx}" y="{cy + 18}" text-anchor="middle" class="m" font-size="9.5" fill="{t["muted"]}">{esc(SHORT_LANG.get(lang, lang)[:12])}</text>')
+
+    updated = date.fromisoformat(r["pushedAt"][:10]).strftime("%b %Y").upper()
+    body = (
+        f'<defs><clipPath id="c{uid}"><rect width="{w}" height="{h}" rx="26"/></clipPath>'
+        f'<linearGradient id="g{uid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{c1}"/><stop offset="1" stop-color="{c2}"/></linearGradient></defs>'
+        f'<g clip-path="url(#c{uid})">'
+        f'<rect width="{w}" height="{h}" fill="{t["bg1"]}"/>'
+        f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
+        f'<rect x="14" y="14" width="{w - 28}" height="172" rx="18" fill="url(#g{uid})"/>'
+        f'<g transform="translate(14 14)">{code}</g>{donut}'
+        f'<text x="30" y="216" class="m" font-size="12" letter-spacing="1.2" fill="{t["faint"]}">{esc(lang.upper())} · UPDATED {updated}</text>'
+        f'<text x="28" y="248" class="d6" font-size="25" letter-spacing="-0.5" fill="{t["ink"]}">{esc(r["name"])}</text>'
+        f'<text x="{w - 34}" y="248" text-anchor="end" class="d6" font-size="24" fill="{t["accent"]}">↗</text>'
     )
-    for i, (v, l) in enumerate([("5", "internships"), ("3", "papers"), ("37", "certifications")]):
-        x = 56 + i * 118
-        body += (
-            f'<text x="{x}" y="246" class="d6" font-size="32" letter-spacing="-1" fill="{t["ink"]}">{v}</text>'
-            f'<text x="{x}" y="270" class="s4" font-size="13.5" fill="{t["muted"]}">{l}</text>'
-        )
-    body += f'<line x1="440" y1="52" x2="440" y2="{h - 52}" stroke="{t["line"]}"/>'
-
-    # right: heatmap (last 52 weeks)
-    x0, y0, cell, gap = 482, 70, 12, 2.6
-    if data:
-        days = data["days"][-364:]
-        start = date.fromisoformat(days[0]["date"])
-        offset = (start.weekday() + 1) % 7          # GitHub weeks start on Sunday
-        peak = max(d["contributionCount"] for d in days) or 1
-        last_month = None
-        for i, d in enumerate(days):
-            k = i + offset
-            col, row = k // 7, k % 7
-            n = d["contributionCount"]
-            lvl = 0 if n == 0 else min(4, 1 + int(3.999 * (n / peak) ** 0.5))
-            x, y = x0 + col * (cell + gap), y0 + row * (cell + gap)
-            body += f'<rect x="{x:.1f}" y="{y:.1f}" width="{cell}" height="{cell}" rx="3.2" fill="{t["heat"][lvl]}"/>'
-            dt = start + timedelta(days=i)
-            if dt.day <= 7 and row == 0 and dt.month != last_month:
-                body += f'<text x="{x:.1f}" y="{y0 - 12}" class="m" font-size="11" fill="{t["faint"]}">{dt.strftime("%b")}</text>'
-                last_month = dt.month
-    legend_y = y0 + 7 * (cell + gap) + 18
-    body += f'<text x="{x0}" y="{legend_y + 9}" class="m" font-size="11" fill="{t["faint"]}">less</text>'
-    for i, c in enumerate(t["heat"]):
-        body += f'<rect x="{x0 + 36 + i * 16}" y="{legend_y}" width="12" height="12" rx="3" fill="{c}"/>'
-    body += f'<text x="{x0 + 36 + 5 * 16 + 4}" y="{legend_y + 9}" class="m" font-size="11" fill="{t["faint"]}">more</text>'
-
-    # right: languages
-    if data and data["langs"]:
-        ranked = sorted(data["langs"].items(), key=lambda kv: -kv[1])
-        whole = sum(v for _, v in ranked)
-        top = [(n, v) for n, v in ranked if v / whole >= 0.01][:5]   # hide <1% slivers
-        s = sum(v for _, v in top)
-        bx, by, bw = x0, legend_y + 40, w - x0 - 56
-        body += f'<clipPath id="lb"><rect x="{bx}" y="{by}" width="{bw}" height="10" rx="5"/></clipPath><g clip-path="url(#lb)">'
-        cx = bx
-        for i, (name, v) in enumerate(top):
-            seg = bw * v / s
-            body += f'<rect x="{cx:.1f}" y="{by}" width="{seg + 1:.1f}" height="10" fill="{LANG_COLORS[i]}"/>'
-            cx += seg
-        body += "</g>"
-        lx = bx
-        for i, (name, v) in enumerate(top):
-            label = f"{name} {100 * v / s:.0f}%"
-            body += (
-                f'<circle cx="{lx + 5}" cy="{by + 34}" r="5" fill="{LANG_COLORS[i]}"/>'
-                f'<text x="{lx + 16}" y="{by + 39}" class="s4" font-size="13.5" fill="{t["ink2"]}">{esc(label)}</text>'
-            )
-            lx += 22 + len(label) * 7.6 + 18
-    body += frame(t, w, h)
-    return svg(w, h, f"{total} contributions in the last year", body, ["display-700", "display-600", "sans-400", "sans-500", "mono-500"])
+    lines = wrap(r.get("description") or "", 78)
+    if len(lines) > 2:   # keep cards even: two lines, then an ellipsis
+        lines = [lines[0], lines[1].rstrip(" ,.:;") + "…"]
+    for i, line in enumerate(lines):
+        body += f'<text x="30" y="{276 + i * 21}" class="s4" font-size="14.5" fill="{t["muted"]}">{esc(line)}</text>'
+    body += (
+        icon_star(30, 308, t["muted"]) + f'<text x="50" y="320" class="s5" font-size="13" fill="{t["ink2"]}">{r["stargazerCount"]}</text>'
+        + icon_fork(82, 308, t["muted"]) + f'<text x="102" y="320" class="s5" font-size="13" fill="{t["ink2"]}">{r["forkCount"]}</text>'
+        + f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="26" fill="none" stroke="{t["edge"]}"/></g>'
+    )
+    return svg(w, h, f'{r["name"]}: {r.get("description") or ""}', body, ["display-600", "sans-400", "sans-500", "mono-500"])
 
 
 # ── buttons ──────────────────────────────────────────────────────────────────
@@ -397,23 +426,27 @@ def button(t, key, label, dark):
 # ── main ─────────────────────────────────────────────────────────────────────
 def main():
     OUT.mkdir(exist_ok=True)
-    data = None
+    repos = None
     try:
-        data = fetch_activity()
+        repos = fetch_repos()
     except Exception as e:  # never fail the whole build because the API hiccuped
-        print("activity fetch failed:", e)
+        print("repo fetch failed, using cache:", e)
+        repos = json.loads(CACHE.read_text()) if CACHE.exists() else None
+    for pattern in ("activity-*.svg", "h-activity-*.svg"):
+        for old in OUT.glob(pattern):
+            old.unlink()
     for mode, t in THEMES.items():
         dark = mode == "dark"
         (OUT / f"hero-{mode}.svg").write_text(hero(t), encoding="utf8")
         (OUT / f"h-work-{mode}.svg").write_text(header(t, "01", "Selected work", "Things I've", "built"), encoding="utf8")
-        (OUT / f"h-activity-{mode}.svg").write_text(header(t, "02", "Activity", "Lately on", "GitHub"), encoding="utf8")
+        (OUT / f"h-repos-{mode}.svg").write_text(header(t, "02", "Repositories", "Read the", "code"), encoding="utf8")
         for p in PROJECTS:
             (OUT / f"p-{p['slug']}-{mode}.svg").write_text(project(t, p, dark), encoding="utf8")
-        if data or not (OUT / f"activity-{mode}.svg").exists():
-            (OUT / f"activity-{mode}.svg").write_text(activity(t, data), encoding="utf8")
+        for i, r in enumerate(repos or []):
+            (OUT / f"r-{i}-{mode}.svg").write_text(repo_card(t, r, dark, i), encoding="utf8")
         for key, label in BUTTONS:
             (OUT / f"b-{key}-{mode}.svg").write_text(button(t, key, label, dark), encoding="utf8")
-    print("built", len(list(OUT.glob("*.svg"))), "svgs", "(live activity)" if data else "(no activity data)")
+    print("built", len(list(OUT.glob("*.svg"))), "svgs,", len(repos or []), "repos")
 
 
 if __name__ == "__main__":
