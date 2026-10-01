@@ -38,6 +38,76 @@ THEMES = {
 LANG_COLORS = ["#5a48f5", "#8f7bff", "#c2b6ff", "#f2a7d8", "#9cc3ff", "#cfd4e6"]
 
 
+
+# ── colour palettes ──────────────────────────────────────────────────────────
+# Every SVG is drawn in the original violet "slots" below, then recoloured on
+# the way out. To change the whole profile's colour, change PALETTE.
+SLOTS = {
+    "accent": "#5a48f5", "accent_dark": "#a99bff", "violet_card": "#6b5cff",
+    "blob1": "#cfc3ff", "blob2": "#f5cbe9", "blob3": "#c3d8ff",
+    "ring1": "#d9ccff", "ring2": "#f6c8ec", "ring3": "#bcd8ff",
+    "pearl1": "#e6ddff", "pearl2": "#f3cdec", "pearl3": "#b9d3ff",
+    "bg_l1": "#f3f1fb", "bg_l2": "#e6e1f8", "bg_d1": "#13121c", "bg_d2": "#1b1830",
+    "hl0": "#f1eff8", "hl1": "#cfc6fb", "hl2": "#a594f8", "hl3": "#7a63f2", "hl4": "#4f3be6",
+    "hd0": "#1e1c2c", "hd1": "#3f3585", "hd2": "#5f4fce", "hd3": "#8a77fa", "hd4": "#c4baff",
+    "lang2": "#8f7bff", "lang3": "#c2b6ff",
+    "line_l": "#e7e4f1", "line_d": "#2f2c40", "edge_d": "#2c2a3d", "stroke_l": "#e8e4f3", "stroke_l2": "#e3dff2",
+    "empty_d": "#3d3955", "empty_l": "#dcd7ee", "muted_d": "#b4b1cc", "faint_d": "#918da9", "ink_d": "#f3f1ff", "ink2_d": "#d6d3ea",
+}
+PALETTES = {
+    "violet": {},   # the original
+    "teal": dict(
+        accent="#0d8f84", accent_dark="#3fd6c4", violet_card="#0d9488",
+        blob1="#a7efe4", blob2="#fde4b8", blob3="#bfe3fb",
+        ring1="#c8f4ec", ring2="#fdebc8", ring3="#c4e6fb", pearl1="#dcf7f2", pearl2="#fdeccc", pearl3="#c9e7fb",
+        bg_l1="#f2f8f7", bg_l2="#e4f1ee", bg_d1="#0e1615", bg_d2="#10201d",
+        hl0="#eef4f3", hl1="#b4e5dd", hl2="#62cdbf", hl3="#1aa595", hl4="#0b7469",
+        hd0="#192321", hd1="#16463f", hd2="#137568", hd3="#1fb09f", hd4="#6fe9d8",
+        lang2="#3fbfb0", lang3="#a7e6dd",
+        line_l="#e3ecea", line_d="#24302e", edge_d="#253230", stroke_l="#e1ebe9", stroke_l2="#dde8e6",
+        empty_d="#2f3f3c", empty_l="#d6e4e1", muted_d="#a9bdb9", faint_d="#86a09b", ink_d="#eefaf8", ink2_d="#cfe3df"),
+    "ocean": dict(
+        accent="#2563eb", accent_dark="#7fabff", violet_card="#2563eb",
+        blob1="#bfd7fe", blob2="#c7f0fb", blob3="#dcd3fe",
+        ring1="#d3e3fe", ring2="#cdf3fb", ring3="#e0d8fe", pearl1="#e2ecff", pearl2="#d4f5fb", pearl3="#d6e0ff",
+        bg_l1="#f2f6fd", bg_l2="#e3ebfa", bg_d1="#0e131f", bg_d2="#121b30",
+        hl0="#eef2f9", hl1="#bdd3fb", hl2="#7fa9f6", hl3="#3b78ee", hl4="#1c4fd6",
+        hd0="#192030", hd1="#1d3a6d", hd2="#2958bd", hd3="#4f86f2", hd4="#a3c4ff",
+        lang2="#5f94f4", lang3="#b4cdfb",
+        line_l="#e4eaf5", line_d="#232c40", edge_d="#253049", stroke_l="#e2e9f5", stroke_l2="#dde5f3",
+        empty_d="#2e3a55", empty_l="#d5e0f2", muted_d="#aab6cf", faint_d="#8693ad", ink_d="#f0f5ff", ink2_d="#d0dbf0"),
+    "sunset": dict(
+        accent="#e2541b", accent_dark="#ff9a63", violet_card="#ea580c",
+        blob1="#fed5b5", blob2="#fcd0da", blob3="#fde5a6",
+        ring1="#ffe1cb", ring2="#fdd8e0", ring3="#feeab9", pearl1="#ffeadb", pearl2="#fde0e6", pearl3="#fff0c9",
+        bg_l1="#fcf6f2", bg_l2="#f8ebe2", bg_d1="#18120f", bg_d2="#221813",
+        hl0="#f8f1ec", hl1="#fcd3b6", hl2="#f99c61", hl3="#ec6a20", hl4="#bf400c",
+        hd0="#251c17", hd1="#57301a", hd2="#8c4519", hd3="#d8661d", hd4="#ffb886",
+        lang2="#f38a4c", lang3="#fbc7a4",
+        line_l="#f1e7e0", line_d="#33271f", edge_d="#352920", stroke_l="#f0e5de", stroke_l2="#ede0d8",
+        empty_d="#45362c", empty_l="#eaddd3", muted_d="#c8b6aa", faint_d="#a69283", ink_d="#fff6f0", ink2_d="#ebd9cd"),
+    "graphite": dict(
+        accent="#4d7c0f", accent_dark="#b5ec4f", violet_card="#65a30d",
+        blob1="#e2e8d4", blob2="#e7e5e4", blob3="#dfe8c8",
+        ring1="#eef2e2", ring2="#efedeb", ring3="#e6eed2", pearl1="#f4f6ec", pearl2="#f1efed", pearl3="#e9f0d8",
+        bg_l1="#f6f6f4", bg_l2="#ececea", bg_d1="#111111", bg_d2="#18181a",
+        hl0="#f0f0ee", hl1="#d6ef9e", hl2="#a4d64a", hl3="#6aa312", hl4="#3f6212",
+        hd0="#1c1c1e", hd1="#2f4214", hd2="#4b7a10", hd3="#7fc31a", hd4="#c4f075",
+        lang2="#86b83b", lang3="#cfe6a6",
+        line_l="#e8e8e5", line_d="#2a2a2c", edge_d="#2c2c2e", stroke_l="#e6e6e3", stroke_l2="#e1e1de",
+        empty_d="#3a3a3d", empty_l="#dddddb", muted_d="#b5b5b2", faint_d="#909090", ink_d="#f6f6f4", ink2_d="#dadad7"),
+}
+PALETTE = os.environ.get("PROFILE_PALETTE", "ocean")
+
+
+def recolor(svg_text, palette=None):
+    pal = PALETTES[palette or PALETTE]
+    for slot, new in pal.items():
+        old = SLOTS[slot]
+        svg_text = svg_text.replace(old, new).replace(old.upper(), new)
+    return svg_text
+
+
 # ── helpers ──────────────────────────────────────────────────────────────────
 def esc(s):
     return html.escape(str(s), quote=True)
@@ -65,7 +135,7 @@ def wrap(text, width):
 
 
 def svg(w, h, label, body, fonts):
-    return (
+    return recolor(
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}" viewBox="0 0 {w} {h}" '
         f'role="img" aria-label="{esc(label)}">'
         f"<style>{font_css(*fonts)}"
