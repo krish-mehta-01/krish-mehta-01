@@ -400,6 +400,109 @@ def repo_card(t, r, dark, idx):
     return svg(w, h, f'{r["name"]}: {r.get("description") or ""}', body, ["display-600", "sans-400", "sans-500", "mono-500"])
 
 
+# ── LeetCode card (live data) ────────────────────────────────────────────────
+LC_USER = "_krish_mehta_"
+LC_CACHE = OUT / "leetcode.json"
+LC_QUERY = """query($u: String!) {
+  allQuestionsCount { difficulty count }
+  matchedUser(username: $u) {
+    profile { ranking }
+    submitStats { acSubmissionNum { difficulty count submissions } totalSubmissionNum { difficulty count submissions } }
+  }
+  recentAcSubmissionList(username: $u, limit: 3) { title timestamp }
+}"""
+LC_COLORS = {"Easy": "#1cbaba", "Medium": "#ffb11b", "Hard": "#f0484a"}
+
+
+def fetch_leetcode():
+    try:
+        req = urllib.request.Request(
+            "https://leetcode.com/graphql",
+            data=json.dumps({"query": LC_QUERY, "variables": {"u": LC_USER}}).encode(),
+            headers={"Content-Type": "application/json", "Referer": f"https://leetcode.com/u/{LC_USER}/",
+                     "User-Agent": "Mozilla/5.0 (profile-readme-builder)"},
+        )
+        data = json.load(urllib.request.urlopen(req, timeout=30))["data"]
+        if not data.get("matchedUser"):
+            raise ValueError("user not found")
+        LC_CACHE.write_text(json.dumps(data, indent=1))
+        return data
+    except Exception as e:  # LeetCode sometimes blocks CI runners; fall back to the last good data
+        print("leetcode fetch failed, using cache:", e)
+        return json.loads(LC_CACHE.read_text()) if LC_CACHE.exists() else None
+
+
+def leetcode_card(t, d):
+    w, h = 1280, 380
+    totals = {q["difficulty"]: q["count"] for q in d["allQuestionsCount"]}
+    solved = {q["difficulty"]: q["count"] for q in d["matchedUser"]["submitStats"]["acSubmissionNum"]}
+    ac = {q["difficulty"]: q["submissions"] for q in d["matchedUser"]["submitStats"]["acSubmissionNum"]}
+    sub = {q["difficulty"]: q["submissions"] for q in d["matchedUser"]["submitStats"]["totalSubmissionNum"]}
+    acceptance = round(100 * ac.get("All", 0) / max(1, sub.get("All", 1)))
+    rank = d["matchedUser"]["profile"]["ranking"]
+
+    soft = dict(t, blob=t["blob"] * 0.5)
+    body = backdrop(soft, w, h, [(150, 380, 150, "#bfe9e6"), (1230, 0, 140, "#f5cbe9")], "lc")
+    body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
+    body += (f'<text x="56" y="66" class="m" font-size="13" letter-spacing="1.2" fill="{t["muted"]}">'
+             f'LEETCODE · @{esc(LC_USER)}</text>')
+
+    # difficulty ring
+    cx, cy, rad, sw = 196, 214, 96, 22
+    body += f'<circle cx="{cx}" cy="{cy}" r="{rad}" fill="none" stroke="{t["line"]}" stroke-width="{sw}"/>'
+    total_solved = max(1, solved.get("All", 0))
+    start = -90.0
+    for diff in ("Easy", "Medium", "Hard"):
+        frac = solved.get(diff, 0) / total_solved
+        if frac <= 0:
+            continue
+        sweep = frac * 360 - 3
+        a0, a1 = math.radians(start + 1.5), math.radians(start + 1.5 + sweep)
+        x0, y0 = cx + rad * math.cos(a0), cy + rad * math.sin(a0)
+        x1, y1 = cx + rad * math.cos(a1), cy + rad * math.sin(a1)
+        body += (f'<path d="M{x0:.1f} {y0:.1f} A{rad} {rad} 0 {1 if sweep > 180 else 0} 1 {x1:.1f} {y1:.1f}" '
+                 f'fill="none" stroke="{LC_COLORS[diff]}" stroke-width="{sw}" stroke-linecap="round"/>')
+        start += frac * 360
+    body += (f'<text x="{cx}" y="{cy + 12}" text-anchor="middle" class="d7" font-size="64" letter-spacing="-2" fill="{t["ink"]}">{solved.get("All", 0)}</text>'
+             f'<text x="{cx}" y="{cy + 40}" text-anchor="middle" class="s5" font-size="15" fill="{t["muted"]}">solved</text>')
+
+    # per-difficulty rows (bar = share of what I've solved, totals shown alongside)
+    peak = max(1, max(solved.get(k, 0) for k in ("Easy", "Medium", "Hard")))
+    for i, diff in enumerate(("Easy", "Medium", "Hard")):
+        y = 140 + i * 72
+        n = solved.get(diff, 0)
+        body += (
+            f'<circle cx="{358}" cy="{y - 6}" r="6" fill="{LC_COLORS[diff]}"/>'
+            f'<text x="374" y="{y}" class="s5" font-size="17" fill="{t["ink2"]}">{diff}</text>'
+            f'<text x="742" y="{y}" text-anchor="end" class="d6" font-size="26" fill="{t["ink"]}">{n}'
+            f'<tspan class="s4" font-size="15" fill="{t["faint"]}"> / {totals.get(diff, 0):,}</tspan></text>'
+            f'<rect x="352" y="{y + 14}" width="390" height="9" rx="4.5" fill="{t["line"]}"/>'
+            f'<rect x="352" y="{y + 14}" width="{max(9, 390 * n / peak):.0f}" height="9" rx="4.5" fill="{LC_COLORS[diff]}"/>'
+        )
+    body += f'<line x1="800" y1="56" x2="800" y2="{h - 56}" stroke="{t["line"]}"/>'
+
+    # headline stats + recent problems
+    body += (
+        f'<text x="844" y="132" class="d6" font-size="40" letter-spacing="-1" fill="{t["ink"]}">{acceptance}%</text>'
+        f'<text x="846" y="158" class="s4" font-size="14" fill="{t["muted"]}">acceptance</text>'
+        f'<text x="1030" y="132" class="d6" font-size="40" letter-spacing="-1" fill="{t["ink"]}">#{rank:,}</text>'
+        f'<text x="1032" y="158" class="s4" font-size="14" fill="{t["muted"]}">global rank</text>'
+        f'<text x="846" y="212" class="m" font-size="12" letter-spacing="1.2" fill="{t["muted"]}">RECENTLY SOLVED</text>'
+    )
+    for i, sub_ in enumerate((d.get("recentAcSubmissionList") or [])[:3]):
+        y = 246 + i * 34
+        when = date.fromtimestamp(int(sub_["timestamp"])).strftime("%d %b")
+        title = sub_["title"] if len(sub_["title"]) <= 30 else sub_["title"][:29] + "…"
+        body += (
+            f'<circle cx="852" cy="{y - 5}" r="3.5" fill="{t["accent"]}"/>'
+            f'<text x="866" y="{y}" class="s5" font-size="15" fill="{t["ink2"]}">{esc(title)}</text>'
+            f'<text x="1224" y="{y}" text-anchor="end" class="m" font-size="12" fill="{t["faint"]}">{when}</text>'
+        )
+    body += frame(t, w, h)
+    return svg(w, h, f'LeetCode: {solved.get("All", 0)} problems solved, {acceptance}% acceptance',
+               body, ["display-700", "display-600", "sans-400", "sans-500", "mono-500"])
+
+
 # ── buttons ──────────────────────────────────────────────────────────────────
 ICONS = {
     "website": '<circle cx="0" cy="0" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><ellipse rx="3.6" ry="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="-8.5" y1="0" x2="8.5" y2="0" stroke="currentColor" stroke-width="1.6"/>',
@@ -432,6 +535,7 @@ def main():
     except Exception as e:  # never fail the whole build because the API hiccuped
         print("repo fetch failed, using cache:", e)
         repos = json.loads(CACHE.read_text()) if CACHE.exists() else None
+    lc = fetch_leetcode()
     for pattern in ("activity-*.svg", "h-activity-*.svg"):
         for old in OUT.glob(pattern):
             old.unlink()
@@ -444,6 +548,9 @@ def main():
             (OUT / f"p-{p['slug']}-{mode}.svg").write_text(project(t, p, dark), encoding="utf8")
         for i, r in enumerate(repos or []):
             (OUT / f"r-{i}-{mode}.svg").write_text(repo_card(t, r, dark, i), encoding="utf8")
+        (OUT / f"h-lc-{mode}.svg").write_text(header(t, "03", "Problem solving", "Daily", "practice"), encoding="utf8")
+        if lc:
+            (OUT / f"leetcode-{mode}.svg").write_text(leetcode_card(t, lc), encoding="utf8")
         for key, label in BUTTONS:
             (OUT / f"b-{key}-{mode}.svg").write_text(button(t, key, label, dark), encoding="utf8")
     print("built", len(list(OUT.glob("*.svg"))), "svgs,", len(repos or []), "repos")

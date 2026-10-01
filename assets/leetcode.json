@@ -1,0 +1,85 @@
+{
+ "allQuestionsCount": [
+  {
+   "difficulty": "All",
+   "count": 4069
+  },
+  {
+   "difficulty": "Easy",
+   "count": 968
+  },
+  {
+   "difficulty": "Medium",
+   "count": 2122
+  },
+  {
+   "difficulty": "Hard",
+   "count": 979
+  }
+ ],
+ "matchedUser": {
+  "profile": {
+   "ranking": 2941385
+  },
+  "submitStats": {
+   "acSubmissionNum": [
+    {
+     "difficulty": "All",
+     "count": 45,
+     "submissions": 147
+    },
+    {
+     "difficulty": "Easy",
+     "count": 21,
+     "submissions": 72
+    },
+    {
+     "difficulty": "Medium",
+     "count": 18,
+     "submissions": 53
+    },
+    {
+     "difficulty": "Hard",
+     "count": 6,
+     "submissions": 22
+    }
+   ],
+   "totalSubmissionNum": [
+    {
+     "difficulty": "All",
+     "count": 48,
+     "submissions": 182
+    },
+    {
+     "difficulty": "Easy",
+     "count": 23,
+     "submissions": 93
+    },
+    {
+     "difficulty": "Medium",
+     "count": 19,
+     "submissions": 64
+    },
+    {
+     "difficulty": "Hard",
+     "count": 6,
+     "submissions": 25
+    }
+   ]
+  }
+ },
+ "recentAcSubmissionList": [
+  {
+   "title": "Missing Number",
+   "timestamp": "1787142981"
+  },
+  {
+   "title": "Intersection of Two Arrays",
+   "timestamp": "1787062837"
+  },
+  {
+   "title": "Valid Palindrome",
+   "timestamp": "1786981884"
+  }
+ ]
+}
