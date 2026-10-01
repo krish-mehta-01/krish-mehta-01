@@ -267,7 +267,13 @@ def project(t, p, dark):
 
 # ── repository cards (live data) ────────────────────────────────────────────
 # Shown first, in this order; every other public repo follows, newest push first.
-PRIORITY = ["TOP", "healthconnect-pro", "Mansakha", "Farm-Connect-"]
+PRIORITY = ["TOP", "healthconnect-pro", "Mansakha", "FarmConnect"]
+HIDDEN = {"Farm-Connect-"}   # teammate copies I'd rather not link to
+# Private repos to show anyway: (name, link visitors get, description)
+PRIVATE_SHOWCASE = [
+    ("FarmConnect", "https://www.krishmehta.xyz/#work",
+     "A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders."),
+]
 REPO_FIELDS = """name description url stargazerCount forkCount pushedAt owner { login }
   primaryLanguage { name }
   languages(first: 5, orderBy: {field: SIZE, direction: DESC}) { edges { size node { name } } }"""
@@ -292,6 +298,7 @@ def fetch_repos():
         repositories(privacy: PUBLIC, isFork: false, first: 50, orderBy: {{field: PUSHED_AT, direction: DESC}}) {{
           nodes {{ {REPO_FIELDS} }}
         }}
+        farm: repository(name: "FarmConnect") {{ {REPO_FIELDS} }}
         contributionsCollection {{
           contributionCalendar {{ totalContributions weeks {{ contributionDays {{ contributionCount date }} }} }}
         }}
@@ -303,7 +310,12 @@ def fetch_repos():
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
     )
     user = json.load(urllib.request.urlopen(req, timeout=30))["data"]["user"]
-    repos = [r for r in user["repositories"]["nodes"] if r["name"].lower() != LOGIN.lower()]
+    repos = [r for r in user["repositories"]["nodes"]
+             if r["name"].lower() != LOGIN.lower() and r["name"] not in HIDDEN]
+    for name, link, desc in PRIVATE_SHOWCASE:
+        node = user.get("farm") if name == "FarmConnect" else None
+        if node:
+            repos.append(dict(node, url=link, description=node.get("description") or desc))
     repos.sort(key=lambda r: (PRIORITY.index(r["name"]) if r["name"] in PRIORITY else len(PRIORITY)))
     cal = user["contributionsCollection"]["contributionCalendar"]
     data = {"repos": repos, "calendar": {
@@ -665,6 +677,93 @@ def leetcode_card(t, d):
                body, ["display-700", "display-600", "sans-400", "sans-500", "mono-500"])
 
 
+# ── skills card ──────────────────────────────────────────────────────────────
+ICON_PATHS = json.loads((ROOT / "icons" / "skills.json").read_text())
+# (label, group, simple-icons slug or custom glyph, colour)
+SKILLS = [
+    ("Python", "LANGUAGE", "python", "#3776AB"),
+    ("Java", "LANGUAGE", "openjdk", "#E76F00"),
+    ("JavaScript", "LANGUAGE", "javascript", "#E3B90B"),
+    ("TypeScript", "LANGUAGE", "typescript", "#3178C6"),
+    ("React", "WEB", "react", "#2BB3D9"),
+    ("Node.js", "WEB", "nodedotjs", "#4E9C3F"),
+    ("Flask", "WEB", "flask", "#5B5B6B"),
+    ("PostgreSQL", "DATABASE", "postgresql", "#336791"),
+    ("MySQL", "DATABASE", "mysql", "#00758F"),
+    ("Git", "TOOLS", "git", "#F05032"),
+    ("YOLO", "AI / ML", "g:yolo", "#E5489A"),
+    ("CNN", "AI / ML", "g:cnn", "#6B5CFF"),
+    ("ViT", "AI / ML", "g:vit", "#10B3A3"),
+    ("RL", "AI / ML", "g:rl", "#F2A20F"),
+]
+GLYPHS = {   # simple custom marks for concepts that have no logo (drawn in a 24x24 box)
+    "yolo": '<rect x="2" y="4" width="13" height="11" rx="1.5" fill="none" stroke="C" stroke-width="2.2"/>'
+            '<rect x="10" y="10" width="12" height="10" rx="1.5" fill="none" stroke="C" stroke-width="2.2"/>'
+            '<rect x="2" y="1" width="7" height="3.4" rx="1" fill="C"/>',
+    "cnn": ''.join(f'<rect x="{2 + c * 7}" y="{2 + r * 7}" width="5.5" height="5.5" rx="1.2" fill="C" opacity="{0.35 + 0.2 * ((r + c) % 3)}"/>'
+                   for r in range(3) for c in range(3)),
+    "vit": ''.join(f'<rect x="{1 + c * 6}" y="{6 + r * 6}" width="4.6" height="4.6" rx="1" fill="C"/>' for r in range(2) for c in range(4))
+           + '<path d="M3 4 Q12 -2 21 4" fill="none" stroke="C" stroke-width="1.8"/>',
+    "rl": '<path d="M5 12a7 7 0 1 1 3 5.7" fill="none" stroke="C" stroke-width="2.4" stroke-linecap="round"/>'
+          '<path d="M3 15l2.2 3.4 3.6-2" fill="none" stroke="C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>'
+          '<circle cx="12" cy="12" r="2.6" fill="C"/>',
+}
+
+
+def lighten(hex_color, amount):
+    r, g, b = (int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
+    r, g, b = (round(v + (255 - v) * amount) for v in (r, g, b))
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+def skills_card(t, dark):
+    cols, tw, th, gap = 7, 156, 132, 12
+    w = 1280
+    x0 = (w - (cols * tw + (cols - 1) * gap)) // 2
+    rows = (len(SKILLS) + cols - 1) // cols
+    h = 64 + rows * th + (rows - 1) * gap + 40
+    soft = dict(t, blob=t["blob"] * 0.45)
+    body = backdrop(soft, w, h, [(1220, -10, 140, "#cfc3ff"), (40, h + 20, 130, "#c3d8ff")], "sk")
+    body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
+    body += f'<text x="{x0}" y="42" class="m" font-size="12.5" letter-spacing="1.2" fill="{t["muted"]}">WHAT I WORK WITH</text>'
+    for i, (label, group, icon, color) in enumerate(SKILLS):
+        col, row = i % cols, i // cols
+        x, y = x0 + col * (tw + gap), 64 + row * (th + gap)
+        tile = "#ffffff" if not dark else "#ffffff"
+        body += (f'<rect x="{x}" y="{y}" width="{tw}" height="{th}" rx="20" fill="{tile}" fill-opacity="{0.8 if not dark else 0.05}" '
+                 f'stroke="{t["edge"] if dark else "#e8e4f3"}"/>'
+                 f'<circle cx="{x + tw / 2}" cy="{y + 46}" r="28" fill="{color}" fill-opacity="{0.12 if not dark else 0.2}"/>')
+        ink = lighten(color, 0.42) if dark else color   # brand blues vanish on dark otherwise
+        if icon.startswith("g:"):
+            glyph = GLYPHS[icon[2:]].replace("C", ink)
+        else:
+            glyph = f'<path d="{ICON_PATHS[icon]}" fill="{ink}"/>'
+        body += (f'<g transform="translate({x + tw / 2 - 15} {y + 31}) scale(1.25)">{glyph}</g>'
+                 f'<text x="{x + tw / 2}" y="{y + 100}" text-anchor="middle" class="d6" font-size="16.5" fill="{t["ink"]}">{esc(label)}</text>'
+                 f'<text x="{x + tw / 2}" y="{y + 118}" text-anchor="middle" class="m" font-size="10" letter-spacing="1" fill="{t["faint"]}">{group}</text>')
+    body += frame(t, w, h)
+    return svg(w, h, "Skills: " + ", ".join(s[0] for s in SKILLS), body, ["display-600", "mono-500"])
+
+
+# ── chat buttons (each its own link) ─────────────────────────────────────────
+CHATS = [
+    ("whatsapp", "WhatsApp", "#1faa53", "https://wa.me/918580838656"),
+    ("instagram", "Instagram", "#d62976", "https://www.instagram.com/_krish_mehta_/"),
+    ("telegram", "Telegram", "#26A5E4", "https://www.krishmehta.xyz/telegram"),
+    ("discord", "Discord", "#5865F2", "https://www.krishmehta.xyz/discord"),
+]
+
+
+def chat_button(t, label, color, dark):
+    w, h = 300, 56
+    body = (f'<rect x="0.5" y="0.5" width="{w - 1}" height="{h - 1}" rx="28" fill="{color}" fill-opacity="{0.12 if not dark else 0.18}" '
+            f'stroke="{color}" stroke-opacity="0.35"/>'
+            f'<circle cx="34" cy="28" r="7" fill="{color}"/>'
+            f'<text x="54" y="34" class="s5" font-size="17" fill="{t["ink"]}">{label}</text>'
+            f'<text x="{w - 28}" y="35" text-anchor="end" class="d6" font-size="18" fill="{color}">↗</text>')
+    return svg(w, h, f"Message me on {label}", body, ["sans-500", "display-600"])
+
+
 # ── contact card ─────────────────────────────────────────────────────────────
 CONTACT = [
     ("email", "Email", "krish.mehta.0105@gmail.com"),
@@ -692,16 +791,9 @@ def contact_card(t):
             f'<text x="{x + 70}" y="112" class="d6" font-size="23" letter-spacing="-0.4" fill="{t["ink"]}">{esc(value)}</text>'
         )
     body += f'<line x1="56" y1="164" x2="{w - 56}" y2="164" stroke="{t["line"]}"/>'
-    chats = [("Telegram", "#26A5E4"), ("WhatsApp", "#1faa53"), ("Discord", "#5865F2"), ("Instagram", "#d62976")]
-    body += f'<text x="56" y="212" class="s5" font-size="18" fill="{t["ink2"]}">Prefer chat? Message me on-site at <tspan class="d6" fill="{t["accent"]}">krishmehta.xyz/hub</tspan></text>'
-    x = 56
-    for name, color in chats:
-        width = 26 + len(name) * 8.6 + 18
-        body += (f'<rect x="{x}" y="232" width="{width:.0f}" height="34" rx="17" fill="{color}" fill-opacity="0.13"/>'
-                 f'<circle cx="{x + 17}" cy="249" r="5" fill="{color}"/>'
-                 f'<text x="{x + 29}" y="254" class="s5" font-size="14" fill="{t["ink2"]}">{name}</text>')
-        x += width + 10
-    body += (f'<text x="{w - 56}" y="212" text-anchor="end" class="s4" font-size="15" fill="{t["muted"]}">'
+    body += (f'<text x="56" y="222" class="s5" font-size="18" fill="{t["ink2"]}">Prefer chat? '
+             f'<tspan fill="{t["accent"]}">Tap WhatsApp, Instagram, Telegram or Discord below.</tspan></text>')
+    body += (f'<text x="{w - 56}" y="222" text-anchor="end" class="s4" font-size="15" fill="{t["muted"]}">'
              'Usually replies within a day</text>')
     body += frame(t, w, h)
     return svg(w, h, "Contact: krish.mehta.0105@gmail.com, +91 85808 38656, Chennai", body,
@@ -754,16 +846,20 @@ def main():
     for mode, t in THEMES.items():
         dark = mode == "dark"
         (OUT / f"hero-{mode}.svg").write_text(hero(t), encoding="utf8")
-        (OUT / f"h-repos-{mode}.svg").write_text(header(t, "04", "Repositories", "Read the", "code"), encoding="utf8")
+        (OUT / f"h-repos-{mode}.svg").write_text(header(t, "05", "Repositories", "Read the", "code"), encoding="utf8")
         for i, r in enumerate(repos):
             (OUT / f"r-{i}-{mode}.svg").write_text(repo_card(t, r, dark, i), encoding="utf8")
-        (OUT / f"h-heat-{mode}.svg").write_text(header(t, "01", "Contributions", "A year of", "showing up"), encoding="utf8")
+        (OUT / f"h-skills-{mode}.svg").write_text(header(t, "01", "Skills", "What I", "work with"), encoding="utf8")
+        (OUT / f"skills-{mode}.svg").write_text(skills_card(t, dark), encoding="utf8")
+        for key, label, color, _ in CHATS:
+            (OUT / f"c-{key}-{mode}.svg").write_text(chat_button(t, label, color, dark), encoding="utf8")
+        (OUT / f"h-heat-{mode}.svg").write_text(header(t, "02", "Contributions", "A year of", "showing up"), encoding="utf8")
         if cal:
             (OUT / f"heatmap-{mode}.svg").write_text(heatmap_card(t, cal, dark), encoding="utf8")
-        (OUT / f"h-lc-{mode}.svg").write_text(header(t, "02", "Problem solving", "Daily", "practice"), encoding="utf8")
+        (OUT / f"h-lc-{mode}.svg").write_text(header(t, "03", "Problem solving", "Daily", "practice"), encoding="utf8")
         if lc:
             (OUT / f"leetcode-{mode}.svg").write_text(leetcode_card(t, lc), encoding="utf8")
-        (OUT / f"h-contact-{mode}.svg").write_text(header(t, "03", "Contact", "Let's", "talk"), encoding="utf8")
+        (OUT / f"h-contact-{mode}.svg").write_text(header(t, "04", "Contact", "Let's", "talk"), encoding="utf8")
         (OUT / f"contact-{mode}.svg").write_text(contact_card(t), encoding="utf8")
         for key, label in BUTTONS:
             (OUT / f"b-{key}-{mode}.svg").write_text(button(t, key, label, dark), encoding="utf8")
@@ -798,6 +894,7 @@ def write_readme(repos, has_cal, has_lc):
         "most of life. When something actually matters, though, I switch on: I show up, I'm reliable, and I "
         "do it properly.",
     ]
+    parts += [pic("h-skills", "Skills", "100%"), pic("skills", "Skills: " + ", ".join(sk[0] for sk in SKILLS), "100%")]
     if has_cal:
         parts += [pic("h-heat", "Contributions", "100%"),
                   pic("heatmap", "Contribution heatmap for the last 12 months", "100%")]
@@ -807,7 +904,9 @@ def write_readme(repos, has_cal, has_lc):
     parts += [pic("h-contact", "Contact", "100%"),
               '<a href="mailto:krish.mehta.0105@gmail.com">'
               + pic("contact", "Email krish.mehta.0105@gmail.com · Phone +91 85808 38656 · Chennai", "100%") + "</a>",
-              '<p align="center">' + NL + buttons + NL + "</p>"]
+              '<p align="center">' + NL
+              + NL.join(f'<a href="{url}">{pic(f"c-{key}", "Message me on " + label, "24%")}</a>' for key, label, _, url in CHATS)
+              + NL + "<br>" + NL + buttons + NL + "</p>"]
     # Repositories come last: four on show, the rest behind a native <details> toggle
     top, rest = repos[:4], repos[4:]
     parts += [pic("h-repos", "Repositories", "100%"),

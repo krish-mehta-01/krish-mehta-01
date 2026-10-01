@@ -2,6 +2,10 @@
 
 Hi, I'm Krish. I'm curious about pretty much everything, which is great for learning and terrible for closing browser tabs. I pick things up fast, adapt when plans change, and stay easygoing about most of life. When something actually matters, though, I switch on: I show up, I'm reliable, and I do it properly.
 
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-skills-dark.svg"><img src="assets/h-skills-light.svg" alt="Skills" width="100%"></picture>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/skills-dark.svg"><img src="assets/skills-light.svg" alt="Skills: Python, Java, JavaScript, TypeScript, React, Node.js, Flask, PostgreSQL, MySQL, Git, YOLO, CNN, ViT, RL" width="100%"></picture>
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-heat-dark.svg"><img src="assets/h-heat-light.svg" alt="Contributions" width="100%"></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/heatmap-dark.svg"><img src="assets/heatmap-light.svg" alt="Contribution heatmap for the last 12 months" width="100%"></picture>
@@ -15,6 +19,11 @@ Hi, I'm Krish. I'm curious about pretty much everything, which is great for lear
 <a href="mailto:krish.mehta.0105@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-dark.svg"><img src="assets/contact-light.svg" alt="Email krish.mehta.0105@gmail.com · Phone +91 85808 38656 · Chennai" width="100%"></picture></a>
 
 <p align="center">
+<a href="https://wa.me/918580838656"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/c-whatsapp-dark.svg"><img src="assets/c-whatsapp-light.svg" alt="Message me on WhatsApp" width="24%"></picture></a>
+<a href="https://www.instagram.com/_krish_mehta_/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/c-instagram-dark.svg"><img src="assets/c-instagram-light.svg" alt="Message me on Instagram" width="24%"></picture></a>
+<a href="https://www.krishmehta.xyz/telegram"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/c-telegram-dark.svg"><img src="assets/c-telegram-light.svg" alt="Message me on Telegram" width="24%"></picture></a>
+<a href="https://www.krishmehta.xyz/discord"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/c-discord-dark.svg"><img src="assets/c-discord-light.svg" alt="Message me on Discord" width="24%"></picture></a>
+<br>
 <a href="https://www.krishmehta.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-website-dark.svg"><img src="assets/b-website-light.svg" alt="Website" width="24%"></picture></a>
 <a href="https://www.linkedin.com/in/-krish-mehta-01-05-/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-linkedin-dark.svg"><img src="assets/b-linkedin-light.svg" alt="LinkedIn" width="24%"></picture></a>
 <a href="mailto:krish.mehta.0105@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-email-dark.svg"><img src="assets/b-email-light.svg" alt="Email" width="24%"></picture></a>
@@ -28,7 +37,7 @@ Hi, I'm Krish. I'm curious about pretty much everything, which is great for lear
 <a href="https://github.com/krish-mehta-01/healthconnect-pro"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-1-dark.svg"><img src="assets/r-1-light.svg" alt="healthconnect-pro: Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst." width="49%"></picture></a>
 <br>
 <a href="https://github.com/Ganga9115/Mansakha"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-2-dark.svg"><img src="assets/r-2-light.svg" alt="Mansakha: " width="49%"></picture></a>
-<a href="https://github.com/Pravinprabu/Farm-Connect-"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-3-dark.svg"><img src="assets/r-3-light.svg" alt="Farm-Connect-: " width="49%"></picture></a>
+<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-3-dark.svg"><img src="assets/r-3-light.svg" alt="FarmConnect: A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders." width="49%"></picture></a>
 <br>
 </p>
 
