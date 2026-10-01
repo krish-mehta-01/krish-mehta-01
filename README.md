@@ -1,6 +1,8 @@
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img src="assets/hero-light.svg" alt="Krish Mehta — I build technology for the people it usually forgets." width="100%"></picture>
 
-Hi, I'm Krish. I'm curious about pretty much everything, which is great for learning and terrible for closing browser tabs. I pick things up fast, adapt when plans change, and stay easygoing about most of life. When something actually matters, though, I switch on: I show up, I'm reliable, and I do it properly.
+**I'm Krish: part curiosity, part chaos, fully dependable when it counts.**
+
+My browser has more open tabs than my brain has excuses, I learn whatever the problem needs, and I'd rather laugh through a midnight deploy than panic through it. Easygoing most days. Locked in when it matters.
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-skills-dark.svg"><img src="assets/h-skills-light.svg" alt="Skills" width="100%"></picture>
 
