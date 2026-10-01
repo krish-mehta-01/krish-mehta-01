@@ -889,10 +889,9 @@ def write_readme(repos, has_cal, has_lc):
     buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "24%")}</a>' for key, label, url in BUTTON_LINKS)
     parts = [
         pic("hero", "Krish Mehta — I build technology for the people it usually forgets.", "100%"),
-        "Hi, I'm Krish. I'm curious about pretty much everything, which is great for learning and terrible "
-        "for closing browser tabs. I pick things up fast, adapt when plans change, and stay easygoing about "
-        "most of life. When something actually matters, though, I switch on: I show up, I'm reliable, and I "
-        "do it properly.",
+        "**I'm Krish: part curiosity, part chaos, fully dependable when it counts.**",
+        "My browser has more open tabs than my brain has excuses, I learn whatever the problem needs, and I'd "
+        "rather laugh through a midnight deploy than panic through it. Easygoing most days. Locked in when it matters.",
     ]
     parts += [pic("h-skills", "Skills", "100%"), pic("skills", "Skills: " + ", ".join(sk[0] for sk in SKILLS), "100%")]
     if has_cal:
