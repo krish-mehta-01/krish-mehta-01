@@ -13,9 +13,19 @@ Before I think about models or code, I ask who a tool is really for: a farmer wh
 <br>
 </p>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-activity-dark.svg"><img src="assets/h-activity-light.svg" alt="Activity" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-repos-dark.svg"><img src="assets/h-repos-light.svg" alt="Repositories" width="100%"></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/activity-dark.svg"><img src="assets/activity-light.svg" alt="Contributions in the last year, internships, papers, certifications and top languages" width="100%"></picture>
+<p align="center">
+<a href="https://github.com/krish-mehta-01/TOP"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-0-dark.svg"><img src="assets/r-0-light.svg" alt="TOP: TOP — Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/healthconnect-pro"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-1-dark.svg"><img src="assets/r-1-light.svg" alt="healthconnect-pro: Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst." width="49%"></picture></a>
+<br>
+<a href="https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-2-dark.svg"><img src="assets/r-2-light.svg" alt="Fake-News-Detection-Verification-Tool: TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship)." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-3-dark.svg"><img src="assets/r-3-light.svg" alt="Amdox-AI-Optimizer-Internship: AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship)." width="49%"></picture></a>
+<br>
+<a href="https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-4-dark.svg"><img src="assets/r-4-light.svg" alt="KrishMehta-QSkill-AI-ML: End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship)." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/KrishMehta-VirtualWorks-by-Emogi"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="KrishMehta-VirtualWorks-by-Emogi: Cybersecurity tools from my VirtualWorks internship: email risk analyzer, password checker, port status checker, login control and file protection." width="49%"></picture></a>
+<br>
+</p>
 
 <p align="center">
 <a href="https://www.krishmehta.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-website-dark.svg"><img src="assets/b-website-light.svg" alt="Website" width="24%"></picture></a>
