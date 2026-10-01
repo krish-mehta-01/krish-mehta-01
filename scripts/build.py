@@ -304,7 +304,7 @@ PROJECTS = [
     dict(slug="healthconnect", name="HealthConnect Pro", kind="FULL-STACK · LIVE ON ZOHO CATALYST", illo=illo_health,
          tint=("#fbeee8", "#ece6fa"), tint_dark=("#2a2226", "#1f1e33"),
          desc="Connects village sub-centres to the state health department in both directions: 15+ roles, offline sync, and Zia AI to escalate urgent cases."),
-    dict(slug="tealeaf", name="Tea Leaf Disease Detection", kind="RESEARCH · UNDER REVIEW, MDPI AGRICULTURE", illo=illo_leaf,
+    dict(slug="tealeaf", name="Tea Leaf Disease Detection", kind="RESEARCH · UNDER REVIEW, SPRINGER", illo=illo_leaf,
          tint=("#eef4e4", "#f3ebdf"), tint_dark=("#1e2a1f", "#2a2420"),
          desc="YOLOv26m-guided lesion cropping with a ConvNeXtV2–Swin Transformer ensemble. 97.3% mAP across eight disease classes."),
     dict(slug="qnetsim", name="Q-NETSIM Distributor", kind="CAPSTONE · REINFORCEMENT LEARNING", illo=illo_netsim,
