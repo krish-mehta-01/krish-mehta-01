@@ -1,4 +1,4 @@
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img src="assets/hero-light.svg" alt="Krish Mehta — I build technology for the people it usually forgets." width="100%"></picture>
+<a href="https://www.krishmehta.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img src="assets/hero-light.svg" alt="Krish Mehta — I build technology for the people it usually forgets." width="100%"></picture></a>
 
 **I'm Krish: part curiosity, part chaos, fully dependable when it counts.**
 
@@ -26,10 +26,11 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 <a href="https://www.krishmehta.xyz/telegram"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/c-telegram-dark.svg"><img src="assets/c-telegram-light.svg" alt="Message me on Telegram" width="24%"></picture></a>
 <a href="https://www.krishmehta.xyz/discord"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/c-discord-dark.svg"><img src="assets/c-discord-light.svg" alt="Message me on Discord" width="24%"></picture></a>
 <br>
-<a href="https://www.krishmehta.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-website-dark.svg"><img src="assets/b-website-light.svg" alt="Website" width="24%"></picture></a>
-<a href="https://www.linkedin.com/in/-krish-mehta-01-05-/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-linkedin-dark.svg"><img src="assets/b-linkedin-light.svg" alt="LinkedIn" width="24%"></picture></a>
-<a href="mailto:krish.mehta.0105@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-email-dark.svg"><img src="assets/b-email-light.svg" alt="Email" width="24%"></picture></a>
-<a href="https://leetcode.com/u/_krish_mehta_/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-leetcode-dark.svg"><img src="assets/b-leetcode-light.svg" alt="LeetCode" width="24%"></picture></a>
+<a href="https://www.krishmehta.xyz"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-website-dark.svg"><img src="assets/b-website-light.svg" alt="Website" width="19%"></picture></a>
+<a href="https://www.krishmehta.xyz/portfolio"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-portfolio-dark.svg"><img src="assets/b-portfolio-light.svg" alt="Portfolio" width="19%"></picture></a>
+<a href="https://www.linkedin.com/in/-krish-mehta-01-05-/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-linkedin-dark.svg"><img src="assets/b-linkedin-light.svg" alt="LinkedIn" width="19%"></picture></a>
+<a href="mailto:krish.mehta.0105@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-email-dark.svg"><img src="assets/b-email-light.svg" alt="Email" width="19%"></picture></a>
+<a href="https://leetcode.com/u/_krish_mehta_/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/b-leetcode-dark.svg"><img src="assets/b-leetcode-light.svg" alt="LeetCode" width="19%"></picture></a>
 </p>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-repos-dark.svg"><img src="assets/h-repos-light.svg" alt="Repositories" width="100%"></picture>
