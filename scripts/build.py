@@ -882,8 +882,7 @@ ICONS = {
     "leetcode": '<path d="M-4.5 -6.5 L-10 0 L-4.5 6.5 M4.5 -6.5 L10 0 L4.5 6.5 M1.6 -9 L-1.6 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
 }
 BUTTON_LINKS = [
-    ("website", "Website", "https://www.krishmehta.xyz"),
-    ("portfolio", "Portfolio", "https://www.krishmehta.xyz/portfolio"),
+    ("portfolio", "Portfolio", "https://www.krishmehta.xyz"),
     ("linkedin", "LinkedIn", "https://www.linkedin.com/in/-krish-mehta-01-05-/"),
     ("email", "Email", "mailto:krish.mehta.0105@gmail.com"),
     ("leetcode", "LeetCode", "https://leetcode.com/u/_krish_mehta_/"),
@@ -892,6 +891,8 @@ BUTTONS = [(k, l) for k, l, _ in BUTTON_LINKS]
 
 
 def button(t, key, label, dark):
+    if key == "portfolio":
+        return primary_button(t, key, label)
     w, h = 240, 64
     bg = t["bg1"]
     icon = ICONS[key].replace("currentColor", t["ink"]).replace("BG", bg)
@@ -902,6 +903,25 @@ def button(t, key, label, dark):
         f'<text x="{w - 30}" y="39" text-anchor="end" class="d6" font-size="18" fill="{t["accent"]}">↗</text>'
     )
     return svg(w, h, label, body, ["sans-500", "display-600"])
+
+
+def primary_button(t, key, label):
+    """The one call to action: filled in the accent colour, with the address on it."""
+    w, h = 420, 64
+    accent = SLOTS["accent"]          # recoloured to the palette's accent on output
+    icon = ICONS[key].replace("currentColor", "#ffffff")
+    body = (
+        f'<defs><linearGradient id="cta" x1="0" y1="0" x2="1" y2="1">'
+        f'<stop offset="0" stop-color="{accent}"/><stop offset="1" stop-color="{SLOTS["lang2"]}"/></linearGradient></defs>'
+        f'<rect x="0" y="0" width="{w}" height="{h}" rx="32" fill="url(#cta)"/>'
+        f'<rect x="1" y="1" width="{w - 2}" height="{h / 2}" rx="31" fill="#ffffff" fill-opacity="0.08"/>'
+        f'<g transform="translate(38 32)">{icon}</g>'
+        f'<text x="64" y="39" class="d6" font-size="21" fill="#ffffff">{label}</text>'
+        f'<text x="{w - 60}" y="38" text-anchor="end" class="m" font-size="14" fill="#ffffff" fill-opacity="0.85">krishmehta.xyz</text>'
+        f'<circle cx="{w - 32}" cy="32" r="16" fill="#ffffff" fill-opacity="0.18"/>'
+        f'<text x="{w - 32}" y="39" text-anchor="middle" class="d6" font-size="18" fill="#ffffff">↗</text>'
+    )
+    return svg(w, h, f"{label}: krishmehta.xyz", body, ["display-600", "mono-500"])
 
 
 # ── main ─────────────────────────────────────────────────────────────────────
@@ -961,7 +981,7 @@ def repo_grid(repos, offset=0):
 
 def write_readme(repos, has_cal, has_lc):
     """README is generated too, so the repo grid always matches the repos that exist."""
-    buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "19%")}</a>' for key, label, url in BUTTON_LINKS)
+    buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "34%" if key == "portfolio" else "20.5%")}</a>' for key, label, url in BUTTON_LINKS)
     parts = [
         '<a href="https://www.krishmehta.xyz">'
         + pic("hero", "Krish Mehta — I build technology for the people it usually forgets.", "100%") + "</a>",
