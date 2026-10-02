@@ -372,6 +372,9 @@ def flatten(cal):
             "days": [d for wk in cal["weeks"] for d in wk["contributionDays"]]}
 
 
+SHOW_PAST_YEARS = False   # flip to True to add a "Previous years" toggle under the heatmap
+
+
 def fetch_past_years(token):
     """One calendar per finished year, newest first (current year is the rolling card)."""
     years = gql(token, f'query {{ user(login: "{LOGIN}") {{ contributionsCollection {{ contributionYears }} }} }}')
@@ -418,7 +421,7 @@ def fetch_repos():
             repos.append(dict(node, url=link, description=node.get("description") or desc))
     repos.sort(key=lambda r: (PRIORITY.index(r["name"]) if r["name"] in PRIORITY else len(PRIORITY)))
     cal = user["contributionsCollection"]["contributionCalendar"]
-    data = {"repos": repos, "calendar": flatten(cal), "years": fetch_past_years(token)}
+    data = {"repos": repos, "calendar": flatten(cal), "years": fetch_past_years(token) if SHOW_PAST_YEARS else []}
     CACHE.write_text(json.dumps(data, indent=1))   # fallback for runs where the API fails
     return data
 
@@ -966,7 +969,7 @@ def main():
         data = json.loads(CACHE.read_text()) if CACHE.exists() else None
     repos = (data or {}).get("repos", [])
     cal = (data or {}).get("calendar")
-    years = (data or {}).get("years", [])
+    years = (data or {}).get("years", []) if SHOW_PAST_YEARS else []
     lc = fetch_leetcode()
     # clear everything generated before, so removed sections/repos don't linger
     for old in OUT.glob("*.svg"):
