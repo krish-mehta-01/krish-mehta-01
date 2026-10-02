@@ -358,6 +358,41 @@ SHORT_LANG = {"Jupyter Notebook": "Notebook", "TypeScript": "TypeScript"}
 CACHE = OUT / "repos.json"
 
 
+def gql(token, query):
+    req = urllib.request.Request(
+        "https://api.github.com/graphql",
+        data=json.dumps({"query": query}).encode(),
+        headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
+    )
+    return json.load(urllib.request.urlopen(req, timeout=30))["data"]
+
+
+def flatten(cal):
+    return {"total": cal["totalContributions"],
+            "days": [d for wk in cal["weeks"] for d in wk["contributionDays"]]}
+
+
+def fetch_past_years(token):
+    """One calendar per finished year, newest first (current year is the rolling card)."""
+    years = gql(token, f'query {{ user(login: "{LOGIN}") {{ contributionsCollection {{ contributionYears }} }} }}')
+    this_year = date.today().year
+    past = [y for y in years["user"]["contributionsCollection"]["contributionYears"] if y < this_year]
+    if not past:
+        return []
+    parts = "\n".join(
+        f'y{y}: contributionsCollection(from: "{y}-01-01T00:00:00Z", to: "{y}-12-31T23:59:59Z") '
+        f'{{ contributionCalendar {{ totalContributions weeks {{ contributionDays {{ contributionCount date }} }} }} }}'
+        for y in past
+    )
+    user = gql(token, f'query {{ user(login: "{LOGIN}") {{ {parts} }} }}')["user"]
+    out = []
+    for y in sorted(past, reverse=True):
+        cal = flatten(user[f"y{y}"]["contributionCalendar"])
+        cal["days"] = [d for d in cal["days"] if d["date"].startswith(str(y))]
+        out.append(dict(cal, year=y))
+    return out
+
+
 def fetch_repos():
     """All public, non-fork repos (minus this profile repo) plus the contribution calendar."""
     token = os.environ.get("GH_TOKEN")
@@ -374,12 +409,7 @@ def fetch_repos():
         }}
       }}
     }}"""
-    req = urllib.request.Request(
-        "https://api.github.com/graphql",
-        data=json.dumps({"query": query}).encode(),
-        headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
-    )
-    user = json.load(urllib.request.urlopen(req, timeout=30))["data"]["user"]
+    user = gql(token, query)["user"]
     repos = [r for r in user["repositories"]["nodes"]
              if r["name"].lower() != LOGIN.lower() and r["name"] not in HIDDEN]
     for name, link, desc in PRIVATE_SHOWCASE:
@@ -388,10 +418,7 @@ def fetch_repos():
             repos.append(dict(node, url=link, description=node.get("description") or desc))
     repos.sort(key=lambda r: (PRIORITY.index(r["name"]) if r["name"] in PRIORITY else len(PRIORITY)))
     cal = user["contributionsCollection"]["contributionCalendar"]
-    data = {"repos": repos, "calendar": {
-        "total": cal["totalContributions"],
-        "days": [d for wk in cal["weeks"] for d in wk["contributionDays"]],
-    }}
+    data = {"repos": repos, "calendar": flatten(cal), "years": fetch_past_years(token)}
     CACHE.write_text(json.dumps(data, indent=1))   # fallback for runs where the API fails
     return data
 
@@ -591,9 +618,9 @@ def streaks(days):
     return longest, current
 
 
-def heatmap_card(t, cal, dark):
+def heatmap_card(t, cal, dark, year=None):
     w, h = 1280, 440
-    days = cal["days"][-371:]
+    days = cal["days"] if year else cal["days"][-371:]
     soft = dict(t, blob=t["blob"] * 0.4)
     body = backdrop(soft, w, h, [(80, 460, 150, "#cfc3ff"), (1250, -20, 140, "#f5cbe9")], "hm")
     body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
@@ -601,10 +628,19 @@ def heatmap_card(t, cal, dark):
     longest, current = streaks(days)
     best = max(days, key=lambda d: d["contributionCount"])
     active = sum(1 for d in days if d["contributionCount"] > 0)
+    if year:   # a finished year has no "current" streak; show its busiest month instead
+        months = {}
+        for d in days:
+            months[d["date"][:7]] = months.get(d["date"][:7], 0) + d["contributionCount"]
+        busiest = max(months, key=months.get) if months else f"{year}-01"
+        fourth = (date.fromisoformat(busiest + "-01").strftime("%b"), "busiest month")
+    else:
+        fourth = (f"{current}d", "current streak")
     stats = [(f'{cal["total"]:,}', "contributions"), (str(active), "active days"),
-             (f"{longest}d", "longest streak"), (f"{current}d", "current streak"),
+             (f"{longest}d", "longest streak"), fourth,
              (str(best["contributionCount"]), "best day")]
-    body += f'<text x="56" y="62" class="m" font-size="13" letter-spacing="1.2" fill="{t["muted"]}">CONTRIBUTIONS · LAST 12 MONTHS</text>'
+    title = f"CONTRIBUTIONS · {year}" if year else "CONTRIBUTIONS · LAST 12 MONTHS"
+    body += f'<text x="56" y="62" class="m" font-size="13" letter-spacing="1.2" fill="{t["muted"]}">{title}</text>'
     for i, (v, l) in enumerate(stats):
         x = 56 + i * 200
         body += (f'<text x="{x}" y="116" class="d6" font-size="38" letter-spacing="-1" fill="{t["ink"]}">{v}</text>'
@@ -641,9 +677,10 @@ def heatmap_card(t, cal, dark):
         body += f'<rect x="{lx + 40 + i * 22}" y="{ly}" width="16" height="16" rx="4" fill="{c}"{stroke}/>'
     body += f'<text x="{lx + 40 + 5 * 22 + 4}" y="{ly + 12}" class="m" font-size="12.5" fill="{t["muted"]}">more</text>'
     body += (f'<text x="{x0}" y="{ly + 12}" class="s4" font-size="13.5" fill="{t["muted"]}">'
-             f'Best day: {best["contributionCount"]} contributions on {date.fromisoformat(best["date"]).strftime("%d %b %Y")}</text>')
+             + (f'Best day: {best["contributionCount"]} contributions on {date.fromisoformat(best["date"]).strftime("%d %b %Y")}'
+                if best["contributionCount"] else "No contributions this year") + '</text>')
     body += frame(t, w, h)
-    return svg(w, h, f'{cal["total"]} contributions in the last 12 months', body,
+    return svg(w, h, f'{cal["total"]} contributions in {year or "the last 12 months"}', body,
                ["display-600", "sans-400", "mono-500"])
 
 
@@ -851,9 +888,9 @@ CONTACT_ICONS = {
 
 
 def contact_card(t):
-    w, h = 1280, 300
+    w, h = 1280, 184
     soft = dict(t, blob=t["blob"] * 0.5)
-    body = backdrop(soft, w, h, [(1180, 330, 140, "#cfc3ff"), (60, -30, 120, "#c3d8ff")], "ct")
+    body = backdrop(soft, w, h, [(1180, 214, 140, "#cfc3ff"), (60, -30, 120, "#c3d8ff")], "ct")
     body += f'<rect width="{w}" height="{h}" fill="{t["panel"]}" fill-opacity="{t["panel_op"]}"/>'
     for i, (key, label, value) in enumerate(CONTACT):
         x = 56 + i * 400
@@ -863,11 +900,6 @@ def contact_card(t):
             f'<text x="{x + 70}" y="84" class="m" font-size="12.5" letter-spacing="1.2" fill="{t["muted"]}">{label.upper()}</text>'
             f'<text x="{x + 70}" y="112" class="d6" font-size="23" letter-spacing="-0.4" fill="{t["ink"]}">{esc(value)}</text>'
         )
-    body += f'<line x1="56" y1="164" x2="{w - 56}" y2="164" stroke="{t["line"]}"/>'
-    body += (f'<text x="56" y="222" class="s5" font-size="18" fill="{t["ink2"]}">Prefer chat? '
-             f'<tspan fill="{t["accent"]}">Tap WhatsApp, Instagram, Telegram or Discord below.</tspan></text>')
-    body += (f'<text x="{w - 56}" y="222" text-anchor="end" class="s4" font-size="15" fill="{t["muted"]}">'
-             'Usually replies within a day</text>')
     body += frame(t, w, h)
     return svg(w, h, "Contact: krish.mehta.0105@gmail.com, +91 85808 38656, Chennai", body,
                ["display-600", "sans-400", "sans-500", "mono-500"])
@@ -934,6 +966,7 @@ def main():
         data = json.loads(CACHE.read_text()) if CACHE.exists() else None
     repos = (data or {}).get("repos", [])
     cal = (data or {}).get("calendar")
+    years = (data or {}).get("years", [])
     lc = fetch_leetcode()
     # clear everything generated before, so removed sections/repos don't linger
     for old in OUT.glob("*.svg"):
@@ -951,6 +984,9 @@ def main():
         (OUT / f"h-heat-{mode}.svg").write_text(header(t, "02", "Contributions", "A year of", "showing up"), encoding="utf8")
         if cal:
             (OUT / f"heatmap-{mode}.svg").write_text(heatmap_card(t, cal, dark), encoding="utf8")
+        for past in years:
+            (OUT / f"heatmap-{past['year']}-{mode}.svg").write_text(
+                heatmap_card(t, past, dark, year=past["year"]), encoding="utf8")
         (OUT / f"h-lc-{mode}.svg").write_text(header(t, "03", "Problem solving", "Daily", "practice"), encoding="utf8")
         if lc:
             (OUT / f"leetcode-{mode}.svg").write_text(leetcode_card(t, lc), encoding="utf8")
@@ -958,7 +994,7 @@ def main():
         (OUT / f"contact-{mode}.svg").write_text(contact_card(t), encoding="utf8")
         for key, label in BUTTONS:
             (OUT / f"b-{key}-{mode}.svg").write_text(button(t, key, label, dark), encoding="utf8")
-    write_readme(repos, bool(cal), bool(lc))
+    write_readme(repos, bool(cal), bool(lc), [y["year"] for y in years])
     print("built", len(list(OUT.glob("*.svg"))), "svgs,", len(repos), "repos")
 
 
@@ -979,7 +1015,7 @@ def repo_grid(repos, offset=0):
     return out
 
 
-def write_readme(repos, has_cal, has_lc):
+def write_readme(repos, has_cal, has_lc, past_years=()):
     """README is generated too, so the repo grid always matches the repos that exist."""
     buttons = NL.join(f'<a href="{url}">{pic(f"b-{key}", label, "34%" if key == "portfolio" else "20.5%")}</a>' for key, label, url in BUTTON_LINKS)
     parts = [
@@ -993,6 +1029,11 @@ def write_readme(repos, has_cal, has_lc):
     if has_cal:
         parts += [pic("h-heat", "Contributions", "100%"),
                   pic("heatmap", "Contribution heatmap for the last 12 months", "100%")]
+        if past_years:
+            label = " · ".join(str(y) for y in past_years)
+            inner = (NL + "<br>" + NL).join(pic(f"heatmap-{y}", f"Contributions in {y}", "100%") for y in past_years)
+            parts.append("<details>" + NL + f"<summary><b>Previous years ({label})</b></summary>" + NL
+                         + "<br>" + NL + NL + inner + NL + "</details>")
     if has_lc:
         parts += [pic("h-lc", "Problem solving", "100%"),
                   f'<a href="https://leetcode.com/u/{LC_USER}/">{pic("leetcode", "LeetCode stats", "100%")}</a>']
