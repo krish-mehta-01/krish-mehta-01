@@ -12,6 +12,17 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/heatmap-dark.svg"><img src="assets/heatmap-light.svg" alt="Contribution heatmap for the last 12 months" width="100%"></picture>
 
+<details>
+<summary><b>Previous years (2025 · 2024 · 2023)</b></summary>
+<br>
+
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/heatmap-2025-dark.svg"><img src="assets/heatmap-2025-light.svg" alt="Contributions in 2025" width="100%"></picture>
+<br>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/heatmap-2024-dark.svg"><img src="assets/heatmap-2024-light.svg" alt="Contributions in 2024" width="100%"></picture>
+<br>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/heatmap-2023-dark.svg"><img src="assets/heatmap-2023-light.svg" alt="Contributions in 2023" width="100%"></picture>
+</details>
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-lc-dark.svg"><img src="assets/h-lc-light.svg" alt="Problem solving" width="100%"></picture>
 
 <a href="https://leetcode.com/u/_krish_mehta_/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/leetcode-dark.svg"><img src="assets/leetcode-light.svg" alt="LeetCode stats" width="100%"></picture></a>
