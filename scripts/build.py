@@ -337,7 +337,7 @@ def project(t, p, dark):
 
 # ── repository cards (live data) ────────────────────────────────────────────
 # Shown first, in this order; every other public repo follows, newest push first.
-PRIORITY = ["TOP", "healthconnect-pro", "Mansakha", "FarmConnect"]
+PRIORITY = ["TOP", "Swasthya-Sathi", "Mansakha", "FarmConnect"]
 HIDDEN = {"Farm-Connect-"}   # teammate copies I'd rather not link to
 # Private repos to show anyway: (name, link visitors get, description)
 PRIVATE_SHOWCASE = [
