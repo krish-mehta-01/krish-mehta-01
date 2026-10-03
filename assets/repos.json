@@ -43,9 +43,9 @@
    }
   },
   {
-   "name": "healthconnect-pro",
+   "name": "Swasthya-Sathi",
    "description": "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst.",
-   "url": "https://github.com/krish-mehta-01/healthconnect-pro",
+   "url": "https://github.com/krish-mehta-01/Swasthya-Sathi",
    "stargazerCount": 0,
    "forkCount": 0,
    "pushedAt": "2026-08-02T14:20:42Z",
@@ -554,7 +554,7 @@
   }
  ],
  "calendar": {
-  "total": 559,
+  "total": 561,
   "days": [
    {
     "contributionCount": 0,
@@ -2037,7 +2037,7 @@
     "date": "2026-10-02"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 2,
     "date": "2026-10-03"
    }
   ]

@@ -36,7 +36,7 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 
 <p align="center">
 <a href="https://github.com/krish-mehta-01/TOP"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-0-dark.svg"><img src="assets/r-0-light.svg" alt="TOP: TOP — Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state." width="49%"></picture></a>
-<a href="https://github.com/krish-mehta-01/healthconnect-pro"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-1-dark.svg"><img src="assets/r-1-light.svg" alt="healthconnect-pro: Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/Swasthya-Sathi"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-1-dark.svg"><img src="assets/r-1-light.svg" alt="Swasthya-Sathi: Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst." width="49%"></picture></a>
 <br>
 <a href="https://github.com/Ganga9115/Mansakha"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-2-dark.svg"><img src="assets/r-2-light.svg" alt="Mansakha: " width="49%"></picture></a>
 <a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-3-dark.svg"><img src="assets/r-3-light.svg" alt="FarmConnect: A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders." width="49%"></picture></a>
