@@ -259,42 +259,6 @@
    }
   },
   {
-   "name": "demo",
-   "description": "Student report builder: React 19 + Tailwind form with photo and attachment uploads, an Express + SQL backend, and PDF export.",
-   "url": "https://github.com/krish-mehta-01/demo",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-07-20T14:48:00Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "JavaScript"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 30925,
-      "node": {
-       "name": "JavaScript"
-      }
-     },
-     {
-      "size": 3019,
-      "node": {
-       "name": "CSS"
-      }
-     },
-     {
-      "size": 363,
-      "node": {
-       "name": "HTML"
-      }
-     }
-    ]
-   }
-  },
-  {
    "name": "Sleep-Wellness-App",
    "description": null,
    "url": "https://github.com/Dhanesh45/Sleep-Wellness-App",
@@ -361,48 +325,6 @@
       "size": 7994,
       "node": {
        "name": "Jupyter Notebook"
-      }
-     }
-    ]
-   }
-  },
-  {
-   "name": "KrishMehta-VirtualWorks-by-Emogi",
-   "description": "Cybersecurity tools from my VirtualWorks internship: email risk analyzer, password checker, port status checker, login control and file protection.",
-   "url": "https://github.com/krish-mehta-01/KrishMehta-VirtualWorks-by-Emogi",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-06-04T05:47:40Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "Python"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 73653,
-      "node": {
-       "name": "Python"
-      }
-     },
-     {
-      "size": 35945,
-      "node": {
-       "name": "JavaScript"
-      }
-     },
-     {
-      "size": 19235,
-      "node": {
-       "name": "CSS"
-      }
-     },
-     {
-      "size": 15301,
-      "node": {
-       "name": "HTML"
       }
      }
     ]
