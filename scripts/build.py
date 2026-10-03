@@ -405,12 +405,14 @@ def fetch_repos():
     token = os.environ.get("GH_TOKEN")
     if not token:
         return json.loads(CACHE.read_text()) if CACHE.exists() else None
+    # one aliased lookup per private repo we still want to show (p0, p1, ...)
+    showcase = " ".join(f'p{i}: repository(name: "{name}") {{ {REPO_FIELDS} }}' for i, (name, _, _) in enumerate(PRIVATE_SHOWCASE))
     query = f"""query {{
       user(login: "{LOGIN}") {{
         repositories(privacy: PUBLIC, isFork: false, first: 50, orderBy: {{field: PUSHED_AT, direction: DESC}}) {{
           nodes {{ {REPO_FIELDS} }}
         }}
-        farm: repository(name: "FarmConnect") {{ {REPO_FIELDS} }}
+        {showcase}
         contributionsCollection {{
           contributionCalendar {{ totalContributions weeks {{ contributionDays {{ contributionCount date }} }} }}
         }}
@@ -419,8 +421,8 @@ def fetch_repos():
     user = gql(token, query)["user"]
     repos = [r for r in user["repositories"]["nodes"]
              if r["name"].lower() != LOGIN.lower() and r["name"] not in HIDDEN]
-    for name, link, desc in PRIVATE_SHOWCASE:
-        node = user.get("farm") if name == "FarmConnect" else None
+    for i, (name, link, desc) in enumerate(PRIVATE_SHOWCASE):
+        node = user.get(f"p{i}")
         if node:
             repos.append(dict(node, url=link, description=node.get("description") or desc))
     repos.sort(key=lambda r: (PRIORITY.index(r["name"]) if r["name"] in PRIORITY else len(PRIORITY)))
