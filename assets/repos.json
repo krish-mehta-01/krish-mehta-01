@@ -259,6 +259,30 @@
    }
   },
   {
+   "name": "LeetCode",
+   "description": "A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)",
+   "url": "https://github.com/krish-mehta-01/LeetCode",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-08-19T12:36:31Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Java"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 3795,
+      "node": {
+       "name": "Java"
+      }
+     }
+    ]
+   }
+  },
+  {
    "name": "Sleep-Wellness-App",
    "description": null,
    "url": "https://github.com/Dhanesh45/Sleep-Wellness-App",
@@ -410,7 +434,7 @@
   }
  ],
  "calendar": {
-  "total": 551,
+  "total": 564,
   "days": [
    {
     "contributionCount": 0,
@@ -885,7 +909,7 @@
     "date": "2026-01-23"
    },
    {
-    "contributionCount": 5,
+    "contributionCount": 7,
     "date": "2026-01-24"
    },
    {
@@ -1157,7 +1181,7 @@
     "date": "2026-04-01"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 7,
     "date": "2026-04-02"
    },
    {
@@ -1397,7 +1421,7 @@
     "date": "2026-05-31"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 1,
     "date": "2026-06-01"
    },
    {
@@ -1409,7 +1433,7 @@
     "date": "2026-06-03"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 1,
     "date": "2026-06-04"
    },
    {
@@ -1593,7 +1617,7 @@
     "date": "2026-07-19"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 2,
     "date": "2026-07-20"
    },
    {
