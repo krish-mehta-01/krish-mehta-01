@@ -443,40 +443,10 @@
      }
     ]
    }
-  },
-  {
-   "name": "To-Memory-Lane",
-   "description": "Memory Lane: a beginner web app to capture, save and revisit memories as text, images or video, with login, search and filters.",
-   "url": "https://github.com/krish-mehta-01/To-Memory-Lane",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-01-24T04:38:20Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "HTML"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 58526,
-      "node": {
-       "name": "HTML"
-      }
-     },
-     {
-      "size": 5324,
-      "node": {
-       "name": "Python"
-      }
-     }
-    ]
-   }
   }
  ],
  "calendar": {
-  "total": 564,
+  "total": 551,
   "days": [
    {
     "contributionCount": 0,
@@ -951,7 +921,7 @@
     "date": "2026-01-23"
    },
    {
-    "contributionCount": 7,
+    "contributionCount": 5,
     "date": "2026-01-24"
    },
    {
@@ -1223,7 +1193,7 @@
     "date": "2026-04-01"
    },
    {
-    "contributionCount": 7,
+    "contributionCount": 0,
     "date": "2026-04-02"
    },
    {
@@ -1463,7 +1433,7 @@
     "date": "2026-05-31"
    },
    {
-    "contributionCount": 1,
+    "contributionCount": 0,
     "date": "2026-06-01"
    },
    {
@@ -1475,7 +1445,7 @@
     "date": "2026-06-03"
    },
    {
-    "contributionCount": 1,
+    "contributionCount": 0,
     "date": "2026-06-04"
    },
    {
@@ -1659,7 +1629,7 @@
     "date": "2026-07-19"
    },
    {
-    "contributionCount": 2,
+    "contributionCount": 0,
     "date": "2026-07-20"
    },
    {
