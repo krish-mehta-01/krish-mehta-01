@@ -331,42 +331,6 @@
    }
   },
   {
-   "name": "SUPERCALIFRAGILISTICEXPEALIDOCIOUS",
-   "description": "TetherX: vehicle, owner and insurance identity management with ownership verification, insurance links and validity checks for connected-vehicle platforms.",
-   "url": "https://github.com/krish-mehta-01/SUPERCALIFRAGILISTICEXPEALIDOCIOUS",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-03-02T14:55:02Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "JavaScript"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 29135,
-      "node": {
-       "name": "JavaScript"
-      }
-     },
-     {
-      "size": 14706,
-      "node": {
-       "name": "HTML"
-      }
-     },
-     {
-      "size": 7320,
-      "node": {
-       "name": "CSS"
-      }
-     }
-    ]
-   }
-  },
-  {
    "name": "Amdox-AI-Optimizer-Internship",
    "description": "AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship).",
    "url": "https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship",
