@@ -341,6 +341,10 @@ PRIORITY = ["TOP", "Swasthya-Sathi", "Mansakha", "FarmConnect"]
 HIDDEN = {"Farm-Connect-"}   # teammate copies I'd rather not link to
 # Private repos to show anyway: (name, link visitors get, description)
 PRIVATE_SHOWCASE = [
+    ("TOP", "https://www.krishmehta.xyz/#work",
+     "TOP: Tactical Optimization during the time-Out Period. ML models and a decision engine that recommend a coach's next move at a strategic timeout."),
+    ("Swasthya-Sathi", "https://www.krishmehta.xyz/#work",
+     "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst."),
     ("FarmConnect", "https://www.krishmehta.xyz/#work",
      "A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders."),
 ]
