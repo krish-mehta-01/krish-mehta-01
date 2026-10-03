@@ -1,6 +1,90 @@
 {
  "repos": [
   {
+   "name": "TOP",
+   "description": "TOP \u2014 Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state.",
+   "url": "https://www.krishmehta.xyz/#work",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-08-17T11:33:34Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Python"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 349594,
+      "node": {
+       "name": "Python"
+      }
+     },
+     {
+      "size": 199541,
+      "node": {
+       "name": "HTML"
+      }
+     },
+     {
+      "size": 48698,
+      "node": {
+       "name": "JavaScript"
+      }
+     },
+     {
+      "size": 32903,
+      "node": {
+       "name": "CSS"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "Swasthya-Sathi",
+   "description": "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst.",
+   "url": "https://www.krishmehta.xyz/#work",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-08-02T14:20:42Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "TypeScript"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 207204,
+      "node": {
+       "name": "TypeScript"
+      }
+     },
+     {
+      "size": 57648,
+      "node": {
+       "name": "JavaScript"
+      }
+     },
+     {
+      "size": 55889,
+      "node": {
+       "name": "CSS"
+      }
+     },
+     {
+      "size": 1113,
+      "node": {
+       "name": "HTML"
+      }
+     }
+    ]
+   }
+  },
+  {
    "name": "Mansakha",
    "description": null,
    "url": "https://github.com/Ganga9115/Mansakha",
@@ -470,7 +554,7 @@
   }
  ],
  "calendar": {
-  "total": 563,
+  "total": 564,
   "days": [
    {
     "contributionCount": 0,
@@ -1953,7 +2037,7 @@
     "date": "2026-10-02"
    },
    {
-    "contributionCount": 4,
+    "contributionCount": 5,
     "date": "2026-10-03"
    }
   ]
