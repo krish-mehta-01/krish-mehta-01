@@ -44,7 +44,7 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 </p>
 
 <details>
-<summary><b>Show all 13 repositories</b></summary>
+<summary><b>Show all 12 repositories</b></summary>
 <br>
 
 <p align="center">
@@ -60,6 +60,5 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 <a href="https://github.com/krish-mehta-01/Cognifyz-Technologies-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-10-dark.svg"><img src="assets/r-10-light.svg" alt="Cognifyz-Technologies-Internship: Restaurant dataset analysis: cleaning, EDA and visualization of ratings, cuisines and pricing (Cognifyz internship)." width="49%"></picture></a>
 <a href="https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-11-dark.svg"><img src="assets/r-11-light.svg" alt="Fake-News-Detection-Verification-Tool: TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship)." width="49%"></picture></a>
 <br>
-<a href="https://github.com/krish-mehta-01/To-Memory-Lane"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-12-dark.svg"><img src="assets/r-12-light.svg" alt="To-Memory-Lane: Memory Lane: a beginner web app to capture, save and revisit memories as text, images or video, with login, search and filters." width="49%"></picture></a>
 </p>
 </details>
