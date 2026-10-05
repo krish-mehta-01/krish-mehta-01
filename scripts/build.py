@@ -337,9 +337,10 @@ def project(t, p, dark):
 
 # ── repository cards (live data) ────────────────────────────────────────────
 # Shown first, in this order; every other public repo follows, newest push first.
-PRIORITY = ["TOP", "Swasthya-Sathi", "Mansakha", "FarmConnect"]
-HIDDEN = {"Farm-Connect-"}   # teammate copies I'd rather not link to
-# Private repos to show anyway: (name, link visitors get, description)
+PRIORITY = ["TOP", "Swasthya-Sathi", "Mansakha", "FarmConnect", "Restora"]
+HIDDEN = {"Farm-Connect-", "Sleep-Wellness-App"}   # teammate copies / older versions I'd rather not link to
+# Private repos to show anyway: (repo, link visitors get, description[, display name]).
+# repo is "name" for my own repos or "owner/name" for a team repo hosted by someone else.
 PRIVATE_SHOWCASE = [
     ("TOP", "https://www.krishmehta.xyz/#work",
      "TOP: Tactical Optimization during the time-Out Period. ML models and a decision engine that recommend a coach's next move at a strategic timeout."),
@@ -347,6 +348,9 @@ PRIVATE_SHOWCASE = [
      "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst."),
     ("FarmConnect", "https://www.krishmehta.xyz/#work",
      "A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders."),
+    ("Dhanesh45/restora", "https://github.com/Dhanesh45/restora",
+     "Sleep-improvement app: sleep tracking, bedtime stories, calming sounds and voice-cloned lullabies. I built its wellness module.",
+     "Restora"),
 ]
 REPO_FIELDS = """name description url stargazerCount forkCount pushedAt owner { login }
   primaryLanguage { name }
@@ -405,26 +409,31 @@ def fetch_repos():
     token = os.environ.get("GH_TOKEN")
     if not token:
         return json.loads(CACHE.read_text()) if CACHE.exists() else None
-    # one aliased lookup per private repo we still want to show (p0, p1, ...)
-    showcase = " ".join(f'p{i}: repository(name: "{name}") {{ {REPO_FIELDS} }}' for i, (name, _, _) in enumerate(PRIVATE_SHOWCASE))
+    # one aliased top-level lookup per private repo we still want to show (p0, p1, ...)
+    def lookup(i, repo):
+        owner, name = repo.split("/", 1) if "/" in repo else (LOGIN, repo)
+        return f'p{i}: repository(owner: "{owner}", name: "{name}") {{ {REPO_FIELDS} }}'
+    showcase = " ".join(lookup(i, entry[0]) for i, entry in enumerate(PRIVATE_SHOWCASE))
     query = f"""query {{
       user(login: "{LOGIN}") {{
         repositories(privacy: PUBLIC, isFork: false, first: 50, orderBy: {{field: PUSHED_AT, direction: DESC}}) {{
           nodes {{ {REPO_FIELDS} }}
         }}
-        {showcase}
         contributionsCollection {{
           contributionCalendar {{ totalContributions weeks {{ contributionDays {{ contributionCount date }} }} }}
         }}
       }}
+      {showcase}
     }}"""
-    user = gql(token, query)["user"]
+    data = gql(token, query)
+    user = data["user"]
     repos = [r for r in user["repositories"]["nodes"]
              if r["name"].lower() != LOGIN.lower() and r["name"] not in HIDDEN]
-    for i, (name, link, desc) in enumerate(PRIVATE_SHOWCASE):
-        node = user.get(f"p{i}")
+    for i, (repo, link, desc, *display) in enumerate(PRIVATE_SHOWCASE):
+        node = data.get(f"p{i}")
         if node:
-            repos.append(dict(node, url=link, description=node.get("description") or desc))
+            repos.append(dict(node, url=link, description=node.get("description") or desc,
+                              name=display[0] if display else node["name"]))
     repos.sort(key=lambda r: (PRIORITY.index(r["name"]) if r["name"] in PRIORITY else len(PRIORITY)))
     cal = user["contributionsCollection"]["contributionCalendar"]
     data = {"repos": repos, "calendar": flatten(cal), "years": fetch_past_years(token) if SHOW_PAST_YEARS else []}

@@ -48,11 +48,11 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 <br>
 
 <p align="center">
-<a href="https://github.com/Pravinprabu/Rmk-innovate"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-4-dark.svg"><img src="assets/r-4-light.svg" alt="Rmk-innovate: " width="49%"></picture></a>
-<a href="https://github.com/RithikRaja28/PragatiMitra-Application"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="PragatiMitra-Application: " width="49%"></picture></a>
+<a href="https://github.com/Dhanesh45/restora"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-4-dark.svg"><img src="assets/r-4-light.svg" alt="Restora: Sleep-improvement app: sleep tracking, bedtime stories, calming sounds and voice-cloned lullabies. I built its wellness module." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/LeetCode"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="LeetCode: A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)" width="49%"></picture></a>
 <br>
-<a href="https://github.com/krish-mehta-01/LeetCode"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-6-dark.svg"><img src="assets/r-6-light.svg" alt="LeetCode: A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)" width="49%"></picture></a>
-<a href="https://github.com/Dhanesh45/Sleep-Wellness-App"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-7-dark.svg"><img src="assets/r-7-light.svg" alt="Sleep-Wellness-App: " width="49%"></picture></a>
+<a href="https://github.com/Pravinprabu/Rmk-innovate"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-6-dark.svg"><img src="assets/r-6-light.svg" alt="Rmk-innovate: " width="49%"></picture></a>
+<a href="https://github.com/RithikRaja28/PragatiMitra-Application"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-7-dark.svg"><img src="assets/r-7-light.svg" alt="PragatiMitra-Application: " width="49%"></picture></a>
 <br>
 <a href="https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-8-dark.svg"><img src="assets/r-8-light.svg" alt="KrishMehta-QSkill-AI-ML: End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship)." width="49%"></picture></a>
 <a href="https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-9-dark.svg"><img src="assets/r-9-light.svg" alt="Amdox-AI-Optimizer-Internship: AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship)." width="49%"></picture></a>
