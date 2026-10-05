@@ -186,7 +186,7 @@
    "url": "https://github.com/Dhanesh45/restora",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-05T04:16:20Z",
+   "pushedAt": "2026-10-05T04:37:13Z",
    "owner": {
     "login": "Dhanesh45"
    },
@@ -223,6 +223,36 @@
       "size": 27294,
       "node": {
        "name": "C++"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "KrishMehta-QSkill-AI-ML",
+   "description": "End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship).",
+   "url": "https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-05T05:59:33Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Jupyter Notebook"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 26930,
+      "node": {
+       "name": "Jupyter Notebook"
+      }
+     },
+     {
+      "size": 1508,
+      "node": {
+       "name": "Python"
       }
      }
     ]
@@ -331,30 +361,6 @@
    }
   },
   {
-   "name": "KrishMehta-QSkill-AI-ML",
-   "description": "End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship).",
-   "url": "https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-06-26T12:37:56Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "Jupyter Notebook"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 7994,
-      "node": {
-       "name": "Jupyter Notebook"
-      }
-     }
-    ]
-   }
-  },
-  {
    "name": "Amdox-AI-Optimizer-Internship",
    "description": "AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship).",
    "url": "https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship",
@@ -434,7 +440,7 @@
   }
  ],
  "calendar": {
-  "total": 564,
+  "total": 566,
   "days": [
    {
     "contributionCount": 0,
@@ -1897,7 +1903,7 @@
     "date": "2026-10-04"
    },
    {
-    "contributionCount": 1,
+    "contributionCount": 3,
     "date": "2026-10-05"
    }
   ]
