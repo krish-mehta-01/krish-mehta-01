@@ -6,7 +6,7 @@
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-03T16:57:07Z",
+   "pushedAt": "2026-10-05T06:47:43Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -44,11 +44,11 @@
   },
   {
    "name": "Swasthya-Sathi",
-   "description": "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst.",
+   "description": "Health management platform linking village sub-centres to district and state officials. 16 roles, offline sync, Gemini AI triage. Live on Zoho Catalyst.",
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-08-02T14:20:42Z",
+   "pushedAt": "2026-10-05T06:47:54Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -138,7 +138,7 @@
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-02T14:31:46Z",
+   "pushedAt": "2026-10-05T06:47:47Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -229,12 +229,90 @@
    }
   },
   {
+   "name": "Cognifyz-Technologies-Internship",
+   "description": "Restaurant dataset analysis: cleaning, EDA and visualization of ratings, cuisines and pricing (Cognifyz internship).",
+   "url": "https://github.com/krish-mehta-01/Cognifyz-Technologies-Internship",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-05T07:05:41Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Jupyter Notebook"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 247528,
+      "node": {
+       "name": "Jupyter Notebook"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "Amdox-AI-Optimizer-Internship",
+   "description": "AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship).",
+   "url": "https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-05T07:01:29Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Python"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 6472,
+      "node": {
+       "name": "Python"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "Fake-News-Detection-Verification-Tool",
+   "description": "TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship).",
+   "url": "https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-05T06:59:46Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "HTML"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 1666743,
+      "node": {
+       "name": "HTML"
+      }
+     },
+     {
+      "size": 265869,
+      "node": {
+       "name": "Python"
+      }
+     }
+    ]
+   }
+  },
+  {
    "name": "KrishMehta-QSkill-AI-ML",
    "description": "End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship).",
    "url": "https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-05T05:59:33Z",
+   "pushedAt": "2026-10-05T06:47:16Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -359,88 +437,10 @@
      }
     ]
    }
-  },
-  {
-   "name": "Amdox-AI-Optimizer-Internship",
-   "description": "AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship).",
-   "url": "https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-02-12T09:26:45Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "Python"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 5076,
-      "node": {
-       "name": "Python"
-      }
-     }
-    ]
-   }
-  },
-  {
-   "name": "Cognifyz-Technologies-Internship",
-   "description": "Restaurant dataset analysis: cleaning, EDA and visualization of ratings, cuisines and pricing (Cognifyz internship).",
-   "url": "https://github.com/krish-mehta-01/Cognifyz-Technologies-Internship",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-02-02T16:07:31Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "Jupyter Notebook"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 208085,
-      "node": {
-       "name": "Jupyter Notebook"
-      }
-     }
-    ]
-   }
-  },
-  {
-   "name": "Fake-News-Detection-Verification-Tool",
-   "description": "TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship).",
-   "url": "https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-02-02T15:03:03Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "HTML"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 1666743,
-      "node": {
-       "name": "HTML"
-      }
-     },
-     {
-      "size": 263885,
-      "node": {
-       "name": "Python"
-      }
-     }
-    ]
-   }
   }
  ],
  "calendar": {
-  "total": 566,
+  "total": 438,
   "days": [
    {
     "contributionCount": 0,
@@ -1031,11 +1031,11 @@
     "date": "2026-02-28"
    },
    {
-    "contributionCount": 10,
+    "contributionCount": 0,
     "date": "2026-03-01"
    },
    {
-    "contributionCount": 2,
+    "contributionCount": 0,
     "date": "2026-03-02"
    },
    {
@@ -1579,7 +1579,7 @@
     "date": "2026-07-15"
    },
    {
-    "contributionCount": 5,
+    "contributionCount": 0,
     "date": "2026-07-16"
    },
    {
@@ -1631,11 +1631,11 @@
     "date": "2026-07-28"
    },
    {
-    "contributionCount": 4,
+    "contributionCount": 0,
     "date": "2026-07-29"
    },
    {
-    "contributionCount": 2,
+    "contributionCount": 0,
     "date": "2026-07-30"
    },
    {
@@ -1647,7 +1647,7 @@
     "date": "2026-08-01"
    },
    {
-    "contributionCount": 11,
+    "contributionCount": 0,
     "date": "2026-08-02"
    },
    {
@@ -1675,7 +1675,7 @@
     "date": "2026-08-08"
    },
    {
-    "contributionCount": 6,
+    "contributionCount": 0,
     "date": "2026-08-09"
    },
    {
@@ -1683,7 +1683,7 @@
     "date": "2026-08-10"
    },
    {
-    "contributionCount": 8,
+    "contributionCount": 4,
     "date": "2026-08-11"
    },
    {
@@ -1715,11 +1715,11 @@
     "date": "2026-08-18"
    },
    {
-    "contributionCount": 5,
+    "contributionCount": 1,
     "date": "2026-08-19"
    },
    {
-    "contributionCount": 8,
+    "contributionCount": 0,
     "date": "2026-08-20"
    },
    {
@@ -1727,7 +1727,7 @@
     "date": "2026-08-21"
    },
    {
-    "contributionCount": 5,
+    "contributionCount": 0,
     "date": "2026-08-22"
    },
    {
@@ -1763,15 +1763,15 @@
     "date": "2026-08-30"
    },
    {
-    "contributionCount": 2,
+    "contributionCount": 0,
     "date": "2026-08-31"
    },
    {
-    "contributionCount": 17,
+    "contributionCount": 12,
     "date": "2026-09-01"
    },
    {
-    "contributionCount": 11,
+    "contributionCount": 4,
     "date": "2026-09-02"
    },
    {
@@ -1779,11 +1779,11 @@
     "date": "2026-09-03"
    },
    {
-    "contributionCount": 20,
+    "contributionCount": 16,
     "date": "2026-09-04"
    },
    {
-    "contributionCount": 7,
+    "contributionCount": 4,
     "date": "2026-09-05"
    },
    {
@@ -1831,11 +1831,11 @@
     "date": "2026-09-16"
    },
    {
-    "contributionCount": 9,
+    "contributionCount": 0,
     "date": "2026-09-17"
    },
    {
-    "contributionCount": 11,
+    "contributionCount": 9,
     "date": "2026-09-18"
    },
    {
@@ -1847,15 +1847,15 @@
     "date": "2026-09-20"
    },
    {
-    "contributionCount": 8,
+    "contributionCount": 6,
     "date": "2026-09-21"
    },
    {
-    "contributionCount": 12,
+    "contributionCount": 1,
     "date": "2026-09-22"
    },
    {
-    "contributionCount": 22,
+    "contributionCount": 18,
     "date": "2026-09-23"
    },
    {
@@ -1887,23 +1887,23 @@
     "date": "2026-09-30"
    },
    {
-    "contributionCount": 22,
+    "contributionCount": 31,
     "date": "2026-10-01"
    },
    {
-    "contributionCount": 35,
+    "contributionCount": 10,
     "date": "2026-10-02"
    },
    {
-    "contributionCount": 11,
+    "contributionCount": 6,
     "date": "2026-10-03"
    },
    {
-    "contributionCount": 6,
+    "contributionCount": 4,
     "date": "2026-10-04"
    },
    {
-    "contributionCount": 3,
+    "contributionCount": 8,
     "date": "2026-10-05"
    }
   ]

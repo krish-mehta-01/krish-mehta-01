@@ -257,7 +257,7 @@ def illo_health(t):
     out += (
         f'<text x="60" y="64" class="m" font-size="11" letter-spacing="1" fill="{t["muted"]}">REPORTS FLOW UP · DECISIONS FLOW BACK DOWN</text>'
         '<rect x="60" y="160" width="300" height="40" rx="12" fill="#fdecea"/>'
-        '<text x="76" y="185" class="s5" font-size="13" fill="#8a2b20">Zia AI flagged 1 urgent case</text>'
+        '<text x="76" y="185" class="s5" font-size="13" fill="#8a2b20">Gemini AI flagged 1 urgent case</text>'
         '<rect x="372" y="160" width="208" height="40" rx="12" fill="#dcf3e4"/>'
         '<text x="388" y="185" class="s5" font-size="13" fill="#1d7a45">offline · Hindi / English</text>'
     )
@@ -301,12 +301,12 @@ PROJECTS = [
     dict(slug="mansakha", name="Mansakha", kind="SIH 2026 · AI FOR SOCIAL GOOD", illo=illo_mansakha,
          tint=("#f6e6ee", "#e3e6fa"), tint_dark=("#2a1f2e", "#1f2236"),
          desc="Distress prediction for survivors of atrocities under the SC/ST Act: private daily check-ins, every NHAA 14566 call on one timeline, a live district map."),
-    dict(slug="healthconnect", name="HealthConnect Pro", kind="FULL-STACK · LIVE ON ZOHO CATALYST", illo=illo_health,
+    dict(slug="healthconnect", name="Swasthya Sathi", kind="FULL-STACK · LIVE ON ZOHO CATALYST", illo=illo_health,
          tint=("#fbeee8", "#ece6fa"), tint_dark=("#2a2226", "#1f1e33"),
-         desc="Connects village sub-centres to the state health department in both directions: 15+ roles, offline sync, and Zia AI to escalate urgent cases."),
-    dict(slug="tealeaf", name="Tea Leaf Disease Detection", kind="RESEARCH · UNDER REVIEW, SPRINGER", illo=illo_leaf,
+         desc="Connects village sub-centres to district and state officials: report approvals with anomaly flags, stock tracking, offline sync, 16 roles and Gemini AI triage."),
+    dict(slug="tealeaf", name="Tea Leaf Disease Detection", kind="RESEARCH · SPRINGER JOURNAL", illo=illo_leaf,
          tint=("#eef4e4", "#f3ebdf"), tint_dark=("#1e2a1f", "#2a2420"),
-         desc="YOLOv26m-guided lesion cropping with a ConvNeXtV2–Swin Transformer ensemble. 97.3% mAP across eight disease classes."),
+         desc="YOLOv26m-guided lesion cropping with a ConvNeXtV2–Swin Transformer ensemble: 97.75% accuracy; the YOLOv26m detector alone reaches 98.8%."),
     dict(slug="qnetsim", name="Q-NETSIM Distributor", kind="CAPSTONE · REINFORCEMENT LEARNING", illo=illo_netsim,
          tint=("#e3e9f7", "#eee8fb"), tint_dark=("#1c2233", "#221e33"),
          desc="A digital twin of our 5G RF testbed where a DQN agent learns beam, power and resource decisions before touching real hardware."),
@@ -345,7 +345,7 @@ PRIVATE_SHOWCASE = [
     ("TOP", "https://www.krishmehta.xyz/#work",
      "TOP: Tactical Optimization during the time-Out Period. ML models and a decision engine that recommend a coach's next move at a strategic timeout."),
     ("Swasthya-Sathi", "https://www.krishmehta.xyz/#work",
-     "Health management platform linking village sub-centres to the state health department. 15+ roles, offline sync, Zia AI escalation. Live on Zoho Catalyst."),
+     "Health management platform linking village sub-centres to district and state officials. 16 roles, offline sync, Gemini AI triage. Live on Zoho Catalyst."),
     ("FarmConnect", "https://www.krishmehta.xyz/#work",
      "A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders."),
     ("Dhanesh45/restora", "https://github.com/Dhanesh45/restora",
