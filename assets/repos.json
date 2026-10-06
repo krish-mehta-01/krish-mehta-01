@@ -186,7 +186,7 @@
    "url": "https://github.com/Dhanesh45/restora",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-05T04:37:13Z",
+   "pushedAt": "2026-10-06T02:22:54Z",
    "owner": {
     "login": "Dhanesh45"
    },
@@ -226,6 +226,21 @@
       }
      }
     ]
+   }
+  },
+  {
+   "name": "yolo26-convnextv2-swin-tea",
+   "description": "Tea leaf disease datasets: YOLO26m lesion annotations and lesion crops (derived from the tea sickness dataset, CC BY-SA 4.0)",
+   "url": "https://github.com/krish-mehta-01/yolo26-convnextv2-swin-tea",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-06T06:14:51Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": null,
+   "languages": {
+    "edges": []
    }
   },
   {
@@ -440,7 +455,7 @@
   }
  ],
  "calendar": {
-  "total": 688,
+  "total": 694,
   "days": [
    {
     "contributionCount": 0,
@@ -1903,8 +1918,12 @@
     "date": "2026-10-04"
    },
    {
-    "contributionCount": 12,
+    "contributionCount": 15,
     "date": "2026-10-05"
+   },
+   {
+    "contributionCount": 3,
+    "date": "2026-10-06"
    }
   ]
  },
