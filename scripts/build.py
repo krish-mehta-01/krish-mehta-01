@@ -199,12 +199,12 @@ def hero(t):
         f'I build technology for <tspan class="i" font-size="35" fill="{t["accent"]}" letter-spacing="0">'
         "the people it usually forgets.</tspan></text>"
         # status pill with a breathing dot
-        f'<rect x="72" y="270" width="318" height="38" rx="19" fill="{t["panel"]}" fill-opacity="{t["panel_op"] + 0.1}" stroke="{t["edge"]}"/>'
+        f'<rect x="72" y="270" width="414" height="38" rx="19" fill="{t["panel"]}" fill-opacity="{t["panel_op"] + 0.1}" stroke="{t["edge"]}"/>'
         '<circle cx="94" cy="289" r="9" fill="#1fae5b" opacity="0.25">'
         '<animate attributeName="r" values="5;11;5" dur="2.4s" repeatCount="indefinite"/>'
         '<animate attributeName="opacity" values="0.45;0;0.45" dur="2.4s" repeatCount="indefinite"/></circle>'
         '<circle cx="94" cy="289" r="5" fill="#1fae5b"/>'
-        f'<text x="110" y="294" class="m" font-size="13.5" fill="{t["ink2"]}">Open to internships &amp; research</text>'
+        f'<text x="110" y="294" class="m" font-size="13.5" fill="{t["ink2"]}">Open to quant, AI/ML &amp; research internships</text>'
     )
     body += frame(t, w, h)
     return svg(w, h, "Krish Mehta — I build technology for the people it usually forgets.", body,
@@ -337,7 +337,7 @@ def project(t, p, dark):
 
 # ── repository cards (live data) ────────────────────────────────────────────
 # Shown first, in this order; every other public repo follows, newest push first.
-PRIORITY = ["TOP", "Swasthya-Sathi", "Mansakha", "FarmConnect", "Restora"]
+PRIORITY = ["mini-nse", "TOP", "Swasthya-Sathi", "Mansakha", "FarmConnect", "Restora"]
 HIDDEN = {"Farm-Connect-", "Sleep-Wellness-App"}   # teammate copies / older versions I'd rather not link to
 # Private repos to show anyway: (repo, link visitors get, description[, display name]).
 # repo is "name" for my own repos or "owner/name" for a team repo hosted by someone else.
@@ -807,6 +807,7 @@ ICON_PATHS = json.loads((ROOT / "icons" / "skills.json").read_text())
 # (label, group, simple-icons slug or custom glyph, colour)
 SKILLS = [
     ("Python", "LANGUAGE", "python", "#3776AB"),
+    ("C++", "LANGUAGE", "cplusplus", "#00599C"),
     ("Java", "LANGUAGE", "openjdk", "#E76F00"),
     ("JavaScript", "LANGUAGE", "javascript", "#E3B90B"),
     ("TypeScript", "LANGUAGE", "typescript", "#3178C6"),
@@ -814,7 +815,6 @@ SKILLS = [
     ("Node.js", "WEB", "nodedotjs", "#4E9C3F"),
     ("Flask", "WEB", "flask", "#5B5B6B"),
     ("PostgreSQL", "DATABASE", "postgresql", "#336791"),
-    ("MySQL", "DATABASE", "mysql", "#00758F"),
     ("Git", "TOOLS", "git", "#F05032"),
     ("YOLO", "AI / ML", "g:yolo", "#E5489A"),
     ("CNN", "AI / ML", "g:cnn", "#6B5CFF"),
@@ -1042,6 +1042,10 @@ def write_readme(repos, has_cal, has_lc, past_years=()):
         "**I'm Krish: part curiosity, part chaos, fully dependable when it counts.**",
         "My browser has more open tabs than my brain has excuses, I learn whatever the problem needs, and I'd "
         "rather laugh through a midnight deploy than panic through it. Easygoing most days. Locked in when it matters.",
+        "**Right now, quantitative trading excites me.** My latest project, "
+        "[Mini NSE](https://github.com/krish-mehta-01/mini-nse), is a C++20 engine that reproduces how India's National "
+        "Stock Exchange opens each morning (the pre-open call auction and the order book) and matches NSE's own opening "
+        "price on 327 of 329 checks on real data. [Step through a trading morning →](https://krish-mehta-01.github.io/mini-nse/)",
     ]
     parts += [pic("h-skills", "Skills", "100%"), pic("skills", "Skills: " + ", ".join(sk[0] for sk in SKILLS), "100%")]
     if has_cal:
