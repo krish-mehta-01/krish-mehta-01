@@ -4,9 +4,11 @@
 
 My browser has more open tabs than my brain has excuses, I learn whatever the problem needs, and I'd rather laugh through a midnight deploy than panic through it. Easygoing most days. Locked in when it matters.
 
+**Right now, quantitative trading excites me.** My latest project, [Mini NSE](https://github.com/krish-mehta-01/mini-nse), is a C++20 engine that reproduces how India's National Stock Exchange opens each morning (the pre-open call auction and the order book) and matches NSE's own opening price on 327 of 329 checks on real data. [Step through a trading morning →](https://krish-mehta-01.github.io/mini-nse/)
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-skills-dark.svg"><img src="assets/h-skills-light.svg" alt="Skills" width="100%"></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="assets/skills-dark.svg"><img src="assets/skills-light.svg" alt="Skills: Python, Java, JavaScript, TypeScript, React, Node.js, Flask, PostgreSQL, MySQL, Git, YOLO, CNN, ViT, RL" width="100%"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/skills-dark.svg"><img src="assets/skills-light.svg" alt="Skills: Python, C++, Java, JavaScript, TypeScript, React, Node.js, Flask, PostgreSQL, Git, YOLO, CNN, ViT, RL" width="100%"></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-heat-dark.svg"><img src="assets/h-heat-light.svg" alt="Contributions" width="100%"></picture>
 
@@ -35,11 +37,11 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-repos-dark.svg"><img src="assets/h-repos-light.svg" alt="Repositories" width="100%"></picture>
 
 <p align="center">
-<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-0-dark.svg"><img src="assets/r-0-light.svg" alt="TOP: TOP — Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state." width="49%"></picture></a>
-<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-1-dark.svg"><img src="assets/r-1-light.svg" alt="Swasthya-Sathi: Health management platform linking village sub-centres to district and state officials. 16 roles, offline sync, Gemini AI triage. Live on Zoho Catalyst." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/mini-nse"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-0-dark.svg"><img src="assets/r-0-light.svg" alt="mini-nse: C++ engine that simulates NSE&#x27;s trading morning: pre-open call auction (Sept 2026 rules) + continuous order book, checked against real NSE data" width="49%"></picture></a>
+<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-1-dark.svg"><img src="assets/r-1-light.svg" alt="TOP: TOP — Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state." width="49%"></picture></a>
 <br>
-<a href="https://github.com/Ganga9115/Mansakha"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-2-dark.svg"><img src="assets/r-2-light.svg" alt="Mansakha: " width="49%"></picture></a>
-<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-3-dark.svg"><img src="assets/r-3-light.svg" alt="FarmConnect: A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders." width="49%"></picture></a>
+<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-2-dark.svg"><img src="assets/r-2-light.svg" alt="Swasthya-Sathi: Health management platform linking village sub-centres to district and state officials. 16 roles, offline sync, Gemini AI triage. Live on Zoho Catalyst." width="49%"></picture></a>
+<a href="https://github.com/Ganga9115/Mansakha"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-3-dark.svg"><img src="assets/r-3-light.svg" alt="Mansakha: " width="49%"></picture></a>
 <br>
 </p>
 
@@ -48,8 +50,8 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 <br>
 
 <p align="center">
-<a href="https://github.com/Dhanesh45/restora"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-4-dark.svg"><img src="assets/r-4-light.svg" alt="Restora: Sleep-improvement app: sleep tracking, bedtime stories, calming sounds and voice-cloned lullabies. I built its wellness module." width="49%"></picture></a>
-<a href="https://github.com/krish-mehta-01/mini-nse"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="mini-nse: C++ engine that simulates NSE&#x27;s trading morning: pre-open call auction (Sept 2026 rules) + continuous order book, checked against real NSE data" width="49%"></picture></a>
+<a href="https://www.krishmehta.xyz/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-4-dark.svg"><img src="assets/r-4-light.svg" alt="FarmConnect: A marketplace where farmers sell directly to buyers, with a dashboard for managing listings and orders." width="49%"></picture></a>
+<a href="https://github.com/Dhanesh45/restora"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="Restora: Sleep-improvement app: sleep tracking, bedtime stories, calming sounds and voice-cloned lullabies. I built its wellness module." width="49%"></picture></a>
 <br>
 <a href="https://github.com/krish-mehta-01/LeetCode"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-6-dark.svg"><img src="assets/r-6-light.svg" alt="LeetCode: A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)" width="49%"></picture></a>
 <a href="https://github.com/krish-mehta-01/yolo26-convnextv2-swin-tea"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-7-dark.svg"><img src="assets/r-7-light.svg" alt="yolo26-convnextv2-swin-tea: Tea leaf disease datasets: YOLO26m lesion annotations and lesion crops (derived from the tea sickness dataset, CC BY-SA 4.0)" width="49%"></picture></a>

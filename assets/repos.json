@@ -1,6 +1,54 @@
 {
  "repos": [
   {
+   "name": "mini-nse",
+   "description": "C++ engine that simulates NSE's trading morning: pre-open call auction (Sept 2026 rules) + continuous order book, checked against real NSE data",
+   "url": "https://github.com/krish-mehta-01/mini-nse",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-07T04:11:58Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "C++"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 97626,
+      "node": {
+       "name": "C++"
+      }
+     },
+     {
+      "size": 46590,
+      "node": {
+       "name": "Python"
+      }
+     },
+     {
+      "size": 17217,
+      "node": {
+       "name": "JavaScript"
+      }
+     },
+     {
+      "size": 6335,
+      "node": {
+       "name": "CSS"
+      }
+     },
+     {
+      "size": 2764,
+      "node": {
+       "name": "CMake"
+      }
+     }
+    ]
+   }
+  },
+  {
    "name": "TOP",
    "description": "TOP \u2014 Tactical Optimization during the time-Out Period: ML models + a decision engine that recommend one tactical action for cricket coaches from the live match state.",
    "url": "https://www.krishmehta.xyz/#work",
@@ -138,7 +186,7 @@
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-07T04:14:00Z",
+   "pushedAt": "2026-10-07T08:37:02Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -160,7 +208,7 @@
       }
      },
      {
-      "size": 31799,
+      "size": 43082,
       "node": {
        "name": "Python"
       }
@@ -223,54 +271,6 @@
       "size": 27294,
       "node": {
        "name": "C++"
-      }
-     }
-    ]
-   }
-  },
-  {
-   "name": "mini-nse",
-   "description": "C++ engine that simulates NSE's trading morning: pre-open call auction (Sept 2026 rules) + continuous order book, checked against real NSE data",
-   "url": "https://github.com/krish-mehta-01/mini-nse",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-10-07T04:11:58Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "C++"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 97626,
-      "node": {
-       "name": "C++"
-      }
-     },
-     {
-      "size": 46590,
-      "node": {
-       "name": "Python"
-      }
-     },
-     {
-      "size": 17217,
-      "node": {
-       "name": "JavaScript"
-      }
-     },
-     {
-      "size": 6335,
-      "node": {
-       "name": "CSS"
-      }
-     },
-     {
-      "size": 2764,
-      "node": {
-       "name": "CMake"
       }
      }
     ]
@@ -503,7 +503,7 @@
   }
  ],
  "calendar": {
-  "total": 740,
+  "total": 742,
   "days": [
    {
     "contributionCount": 0,
@@ -1974,7 +1974,7 @@
     "date": "2026-10-06"
    },
    {
-    "contributionCount": 8,
+    "contributionCount": 10,
     "date": "2026-10-07"
    }
   ]
