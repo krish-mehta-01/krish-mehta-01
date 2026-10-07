@@ -44,22 +44,24 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 </p>
 
 <details>
-<summary><b>Show all 13 repositories</b></summary>
+<summary><b>Show all 14 repositories</b></summary>
 <br>
 
 <p align="center">
 <a href="https://github.com/Dhanesh45/restora"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-4-dark.svg"><img src="assets/r-4-light.svg" alt="Restora: Sleep-improvement app: sleep tracking, bedtime stories, calming sounds and voice-cloned lullabies. I built its wellness module." width="49%"></picture></a>
-<a href="https://github.com/krish-mehta-01/yolo26-convnextv2-swin-tea"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="yolo26-convnextv2-swin-tea: Tea leaf disease datasets: YOLO26m lesion annotations and lesion crops (derived from the tea sickness dataset, CC BY-SA 4.0)" width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/mini-nse"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-5-dark.svg"><img src="assets/r-5-light.svg" alt="mini-nse: C++ engine that simulates NSE&#x27;s trading morning: pre-open call auction (Sept 2026 rules) + continuous order book, checked against real NSE data" width="49%"></picture></a>
 <br>
-<a href="https://github.com/krish-mehta-01/Cognifyz-Technologies-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-6-dark.svg"><img src="assets/r-6-light.svg" alt="Cognifyz-Technologies-Internship: Restaurant dataset analysis: cleaning, EDA and visualization of ratings, cuisines and pricing (Cognifyz internship)." width="49%"></picture></a>
-<a href="https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-7-dark.svg"><img src="assets/r-7-light.svg" alt="Amdox-AI-Optimizer-Internship: AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship)." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/LeetCode"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-6-dark.svg"><img src="assets/r-6-light.svg" alt="LeetCode: A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)" width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/yolo26-convnextv2-swin-tea"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-7-dark.svg"><img src="assets/r-7-light.svg" alt="yolo26-convnextv2-swin-tea: Tea leaf disease datasets: YOLO26m lesion annotations and lesion crops (derived from the tea sickness dataset, CC BY-SA 4.0)" width="49%"></picture></a>
 <br>
-<a href="https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-8-dark.svg"><img src="assets/r-8-light.svg" alt="Fake-News-Detection-Verification-Tool: TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship)." width="49%"></picture></a>
-<a href="https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-9-dark.svg"><img src="assets/r-9-light.svg" alt="KrishMehta-QSkill-AI-ML: End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship)." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/Cognifyz-Technologies-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-8-dark.svg"><img src="assets/r-8-light.svg" alt="Cognifyz-Technologies-Internship: Restaurant dataset analysis: cleaning, EDA and visualization of ratings, cuisines and pricing (Cognifyz internship)." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/Amdox-AI-Optimizer-Internship"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-9-dark.svg"><img src="assets/r-9-light.svg" alt="Amdox-AI-Optimizer-Internship: AI task optimizer that reads emotion from text, face and speech, recommends tasks and flags burnout to HR (Amdox internship)." width="49%"></picture></a>
 <br>
-<a href="https://github.com/krish-mehta-01/LeetCode"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-10-dark.svg"><img src="assets/r-10-light.svg" alt="LeetCode: A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)" width="49%"></picture></a>
-<a href="https://github.com/Pravinprabu/Rmk-innovate"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-11-dark.svg"><img src="assets/r-11-light.svg" alt="Rmk-innovate: " width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/Fake-News-Detection-Verification-Tool"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-10-dark.svg"><img src="assets/r-10-light.svg" alt="Fake-News-Detection-Verification-Tool: TruthGuard: AI fake-news detection with NLP credibility scoring and TruthBot, a Gemini-powered chatbot (Infosys Springboard internship)." width="49%"></picture></a>
+<a href="https://github.com/krish-mehta-01/KrishMehta-QSkill-AI-ML"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-11-dark.svg"><img src="assets/r-11-light.svg" alt="KrishMehta-QSkill-AI-ML: End-to-end ML pipelines: TF-IDF + Naive Bayes spam detector served via FastAPI, and a house price regression model (QSkill internship)." width="49%"></picture></a>
 <br>
-<a href="https://github.com/RithikRaja28/PragatiMitra-Application"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-12-dark.svg"><img src="assets/r-12-light.svg" alt="PragatiMitra-Application: " width="49%"></picture></a>
+<a href="https://github.com/Pravinprabu/Rmk-innovate"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-12-dark.svg"><img src="assets/r-12-light.svg" alt="Rmk-innovate: " width="49%"></picture></a>
+<a href="https://github.com/RithikRaja28/PragatiMitra-Application"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/r-13-dark.svg"><img src="assets/r-13-light.svg" alt="PragatiMitra-Application: " width="49%"></picture></a>
+<br>
 </p>
 </details>

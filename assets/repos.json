@@ -138,7 +138,7 @@
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-05T06:47:47Z",
+   "pushedAt": "2026-10-07T04:14:00Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -148,13 +148,13 @@
    "languages": {
     "edges": [
      {
-      "size": 836498,
+      "size": 913199,
       "node": {
        "name": "TypeScript"
       }
      },
      {
-      "size": 83718,
+      "size": 87617,
       "node": {
        "name": "JavaScript"
       }
@@ -166,15 +166,15 @@
       }
      },
      {
-      "size": 18994,
+      "size": 21404,
       "node": {
        "name": "PLpgSQL"
       }
      },
      {
-      "size": 4673,
+      "size": 5580,
       "node": {
-       "name": "Swift"
+       "name": "CSS"
       }
      }
     ]
@@ -186,7 +186,7 @@
    "url": "https://github.com/Dhanesh45/restora",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-06T02:22:54Z",
+   "pushedAt": "2026-10-07T05:29:51Z",
    "owner": {
     "login": "Dhanesh45"
    },
@@ -223,6 +223,78 @@
       "size": 27294,
       "node": {
        "name": "C++"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "mini-nse",
+   "description": "C++ engine that simulates NSE's trading morning: pre-open call auction (Sept 2026 rules) + continuous order book, checked against real NSE data",
+   "url": "https://github.com/krish-mehta-01/mini-nse",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-07T04:11:58Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "C++"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 97626,
+      "node": {
+       "name": "C++"
+      }
+     },
+     {
+      "size": 46590,
+      "node": {
+       "name": "Python"
+      }
+     },
+     {
+      "size": 17217,
+      "node": {
+       "name": "JavaScript"
+      }
+     },
+     {
+      "size": 6335,
+      "node": {
+       "name": "CSS"
+      }
+     },
+     {
+      "size": 2764,
+      "node": {
+       "name": "CMake"
+      }
+     }
+    ]
+   }
+  },
+  {
+   "name": "LeetCode",
+   "description": "A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)",
+   "url": "https://github.com/krish-mehta-01/LeetCode",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-10-06T16:56:00Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Java"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 5877,
+      "node": {
+       "name": "Java"
       }
      }
     ]
@@ -352,30 +424,6 @@
    }
   },
   {
-   "name": "LeetCode",
-   "description": "A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)",
-   "url": "https://github.com/krish-mehta-01/LeetCode",
-   "stargazerCount": 0,
-   "forkCount": 0,
-   "pushedAt": "2026-10-04T14:49:40Z",
-   "owner": {
-    "login": "krish-mehta-01"
-   },
-   "primaryLanguage": {
-    "name": "Java"
-   },
-   "languages": {
-    "edges": [
-     {
-      "size": 4128,
-      "node": {
-       "name": "Java"
-      }
-     }
-    ]
-   }
-  },
-  {
    "name": "Rmk-innovate",
    "description": null,
    "url": "https://github.com/Pravinprabu/Rmk-innovate",
@@ -455,7 +503,7 @@
   }
  ],
  "calendar": {
-  "total": 694,
+  "total": 740,
   "days": [
    {
     "contributionCount": 0,
@@ -1922,8 +1970,12 @@
     "date": "2026-10-05"
    },
    {
-    "contributionCount": 3,
+    "contributionCount": 41,
     "date": "2026-10-06"
+   },
+   {
+    "contributionCount": 8,
+    "date": "2026-10-07"
    }
   ]
  },
