@@ -6,7 +6,7 @@
    "url": "https://github.com/krish-mehta-01/mini-nse",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-07T04:11:58Z",
+   "pushedAt": "2026-10-08T03:49:31Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -186,7 +186,7 @@
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-07T08:37:02Z",
+   "pushedAt": "2026-10-08T03:23:03Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -196,7 +196,7 @@
    "languages": {
     "edges": [
      {
-      "size": 913199,
+      "size": 1027693,
       "node": {
        "name": "TypeScript"
       }
@@ -503,7 +503,7 @@
   }
  ],
  "calendar": {
-  "total": 742,
+  "total": 749,
   "days": [
    {
     "contributionCount": 0,
@@ -1974,8 +1974,12 @@
     "date": "2026-10-06"
    },
    {
-    "contributionCount": 10,
+    "contributionCount": 13,
     "date": "2026-10-07"
+   },
+   {
+    "contributionCount": 4,
+    "date": "2026-10-08"
    }
   ]
  },
