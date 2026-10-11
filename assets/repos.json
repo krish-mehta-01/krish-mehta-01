@@ -282,7 +282,7 @@
    "url": "https://github.com/krish-mehta-01/LeetCode",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-06T16:56:00Z",
+   "pushedAt": "2026-10-10T16:40:08Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -292,7 +292,7 @@
    "languages": {
     "edges": [
      {
-      "size": 5877,
+      "size": 6769,
       "node": {
        "name": "Java"
       }
@@ -503,36 +503,8 @@
   }
  ],
  "calendar": {
-  "total": 749,
+  "total": 751,
   "days": [
-   {
-    "contributionCount": 0,
-    "date": "2025-10-05"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-06"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-07"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-08"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-09"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-10"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-11"
-   },
    {
     "contributionCount": 0,
     "date": "2025-10-12"
@@ -1986,8 +1958,12 @@
     "date": "2026-10-09"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 2,
     "date": "2026-10-10"
+   },
+   {
+    "contributionCount": 0,
+    "date": "2026-10-11"
    }
   ]
  },
