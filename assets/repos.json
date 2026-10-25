@@ -186,7 +186,7 @@
    "url": "https://www.krishmehta.xyz/#work",
    "stargazerCount": 0,
    "forkCount": 0,
-   "pushedAt": "2026-10-23T16:50:13Z",
+   "pushedAt": "2026-10-25T03:23:15Z",
    "owner": {
     "login": "krish-mehta-01"
    },
@@ -196,7 +196,7 @@
    "languages": {
     "edges": [
      {
-      "size": 1028729,
+      "size": 1029014,
       "node": {
        "name": "TypeScript"
       }
@@ -503,36 +503,8 @@
   }
  ],
  "calendar": {
-  "total": 777,
+  "total": 779,
   "days": [
-   {
-    "contributionCount": 0,
-    "date": "2025-10-19"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-20"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-21"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-22"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-23"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-24"
-   },
-   {
-    "contributionCount": 0,
-    "date": "2025-10-25"
-   },
    {
     "contributionCount": 0,
     "date": "2025-10-26"
@@ -1988,6 +1960,10 @@
    {
     "contributionCount": 0,
     "date": "2026-10-24"
+   },
+   {
+    "contributionCount": 2,
+    "date": "2026-10-25"
    }
   ]
  },
