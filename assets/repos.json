@@ -277,6 +277,54 @@
    }
   },
   {
+   "name": "SIMGuard-Capstone-II",
+   "description": null,
+   "url": "https://github.com/krish-mehta-01/SIMGuard-Capstone-II",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-11-04T17:16:15Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "Python"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 396929,
+      "node": {
+       "name": "Python"
+      }
+     },
+     {
+      "size": 55990,
+      "node": {
+       "name": "CSS"
+      }
+     },
+     {
+      "size": 40705,
+      "node": {
+       "name": "HTML"
+      }
+     },
+     {
+      "size": 33588,
+      "node": {
+       "name": "JavaScript"
+      }
+     },
+     {
+      "size": 6890,
+      "node": {
+       "name": "Solidity"
+      }
+     }
+    ]
+   }
+  },
+  {
    "name": "LeetCode",
    "description": "A collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)",
    "url": "https://github.com/krish-mehta-01/LeetCode",
@@ -503,7 +551,7 @@
   }
  ],
  "calendar": {
-  "total": 808,
+  "total": 826,
   "days": [
    {
     "contributionCount": 0,
@@ -1974,8 +2022,12 @@
     "date": "2026-11-03"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 18,
     "date": "2026-11-04"
+   },
+   {
+    "contributionCount": 0,
+    "date": "2026-11-05"
    }
   ]
  },
