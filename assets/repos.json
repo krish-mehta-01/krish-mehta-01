@@ -277,6 +277,42 @@
    }
   },
   {
+   "name": "rmk-jr-hackathon-2026",
+   "description": null,
+   "url": "https://github.com/krish-mehta-01/rmk-jr-hackathon-2026",
+   "stargazerCount": 0,
+   "forkCount": 0,
+   "pushedAt": "2026-11-13T05:29:41Z",
+   "owner": {
+    "login": "krish-mehta-01"
+   },
+   "primaryLanguage": {
+    "name": "JavaScript"
+   },
+   "languages": {
+    "edges": [
+     {
+      "size": 499988,
+      "node": {
+       "name": "JavaScript"
+      }
+     },
+     {
+      "size": 91897,
+      "node": {
+       "name": "CSS"
+      }
+     },
+     {
+      "size": 61075,
+      "node": {
+       "name": "HTML"
+      }
+     }
+    ]
+   }
+  },
+  {
    "name": "SIMGuard-Capstone-II",
    "description": null,
    "url": "https://github.com/krish-mehta-01/SIMGuard-Capstone-II",
@@ -551,7 +587,7 @@
   }
  ],
  "calendar": {
-  "total": 850,
+  "total": 871,
   "days": [
    {
     "contributionCount": 0,
@@ -2026,8 +2062,12 @@
     "date": "2026-11-11"
    },
    {
-    "contributionCount": 4,
+    "contributionCount": 24,
     "date": "2026-11-12"
+   },
+   {
+    "contributionCount": 1,
+    "date": "2026-11-13"
    }
   ]
  },
