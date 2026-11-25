@@ -587,7 +587,7 @@
   }
  ],
  "calendar": {
-  "total": 974,
+  "total": 979,
   "days": [
    {
     "contributionCount": 0,
@@ -2054,8 +2054,12 @@
     "date": "2026-11-23"
    },
    {
-    "contributionCount": 0,
+    "contributionCount": 2,
     "date": "2026-11-24"
+   },
+   {
+    "contributionCount": 3,
+    "date": "2026-11-25"
    }
   ]
  },
