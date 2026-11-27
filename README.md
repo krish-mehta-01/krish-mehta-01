@@ -6,6 +6,8 @@ My browser has more open tabs than my brain has excuses, I learn whatever the pr
 
 **Right now, quantitative trading excites me.** My latest project, [Mini NSE](https://github.com/krish-mehta-01/mini-nse), is a C++20 engine that reproduces how India's National Stock Exchange opens each morning (the pre-open call auction and the order book) and matches NSE's own opening price on 327 of 329 checks on real data. [Step through a trading morning →](https://krish-mehta-01.github.io/mini-nse/)
 
+**Research:** My paper, *"Iterative Run Reversal Sort (IRRIS): a formal specification, complexity analysis and empirical evaluation"*, is published in the **IEEE Conference** series and indexed on [IEEE Xplore (11759182)](https://ieeexplore.ieee.org/document/11759182).
+
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/h-skills-dark.svg"><img src="assets/h-skills-light.svg" alt="Skills" width="100%"></picture>
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="assets/skills-dark.svg"><img src="assets/skills-light.svg" alt="Skills: Python, C++, Java, JavaScript, TypeScript, React, Node.js, Flask, PostgreSQL, Git, YOLO, CNN, ViT, RL" width="100%"></picture>

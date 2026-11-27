@@ -1046,6 +1046,7 @@ def write_readme(repos, has_cal, has_lc, past_years=()):
         "[Mini NSE](https://github.com/krish-mehta-01/mini-nse), is a C++20 engine that reproduces how India's National "
         "Stock Exchange opens each morning (the pre-open call auction and the order book) and matches NSE's own opening "
         "price on 327 of 329 checks on real data. [Step through a trading morning →](https://krish-mehta-01.github.io/mini-nse/)",
+        "**Research:** My paper, *\"Iterative Run Reversal Sort (IRRIS): a formal specification, complexity analysis and empirical evaluation\"*, is published in the **IEEE Conference** series and indexed on [IEEE Xplore (11759182)](https://ieeexplore.ieee.org/document/11759182).",
     ]
     parts += [pic("h-skills", "Skills", "100%"), pic("skills", "Skills: " + ", ".join(sk[0] for sk in SKILLS), "100%")]
     if has_cal:
